@@ -1,7 +1,7 @@
 <?php
 
 /* Maria DB 설정 */
-define("MY_MARIADB_HOST", "team2");
+define("MY_MARIADB_HOST", "112.222.157.156");
 define("MY_MARIADB_PORT", "6522");
 define("MY_MARIADB_USER", "team2");
 define("MY_MARIADB_PASSWORD", "team2");
