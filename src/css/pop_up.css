@@ -42,18 +42,18 @@
 
 .X_btn {
     background-color: #dcdcdc;
-    background-image: url(../img/icons8-취소하다-64.png);
+    background-image: url(../img/X_btn.png);
     width: 64px;
     height: 64px;
     border-radius: 50px;
     font-weight: 900;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     margin-right: 15px;
     cursor: pointer;
 }
 
 .X_btn:hover {
-    background-image: url(../img/icons8-취소하다-64\ \(1\).png);
+    background-image: url(../img/X_hover_btn.png);
 }
 
 .pop_up_cal {
@@ -66,7 +66,13 @@
 
 .pop_up_btn_box {
     margin-top: 60px;
-    margin-bottom: 100px;
+    display: flex;
+    gap: 30px;
+}
+
+.pop_up_btn_box2 {
+    margin-top: 60px;
+    margin-bottom: 80px;
     display: flex;
     gap: 30px;
 }
