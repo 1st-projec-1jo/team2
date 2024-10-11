@@ -27,7 +27,7 @@ a{
   background-position: center;
   background-size: cover;
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 60px;
 }
 
@@ -90,14 +90,14 @@ a{
   border-radius: 25px;
   margin: 20px auto;
   width: 350px;
-  height: 50px;
+  /* height: 50px; */
   cursor: pointer;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.25),
   inset 2px 2px 5px rgba(0, 0, 0, 0.5),
   inset -3px -3px 5px rgba(0, 0, 0, 0.5);
   display: grid;
-  grid-template-columns: 150px 200px;
+  grid-template-columns: 1fr 4fr;
   gap: 7.5px;
 }
 
@@ -131,7 +131,7 @@ a{
 }
 
 .list_plus_btn > p {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .chk_btn{
