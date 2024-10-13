@@ -28,9 +28,13 @@
 
             $id = isset($_POST["id"]) ? (int)$_POST["id"] : 0;
             
-            $date = isset($_POST["date"]) ? (int)$_POST["date"] : "";
+            $date = isset($_POST["date"]) ? $_POST["date"] : "";
 
             if($id < 1) {
+                throw new Exception("파라미터 오류");
+            }
+
+            if(is_null($date)) {
                 throw new Exception("파라미터 오류");
             }
 
@@ -46,7 +50,18 @@
 
             $conn->commit();
 
-            header("Location: /pop_up.php?&date=".$date);
+            $arr_prepare = [
+                "date" => $date
+            ];
+
+        $result = my_pop_up_count_select($conn, $arr_prepare);
+
+            if($result === 0) {
+                header("Location: /main.php?date=".$date);
+                exit;
+            }
+
+            header("Location: /detail.php?&date=".$date);
             exit;
         }
 
@@ -86,7 +101,7 @@
             <div class="list">
                 <div class="list_check">
                     <button type="button" class="chk_btn"><img src="./img/src/img/free-icon-check-7543187.png" width="30px" height="30px"></button>
-                </div>
+                </div> 
                 <div class="list_title">
                     <a href="./detail.html"><div><?php echo $value["title"] ?></div></a>
                 </div>
@@ -94,7 +109,7 @@
            <?php } ?>
           <div class="list_plus">
             <div class="list_plus_btn">
-            <p>+</p>
+            <a href="insert.php?date=<?php echo $date ?>"><p>+</p></a>
           </div>            
           </div>
         </div>
@@ -105,7 +120,7 @@
             <p>삭제하시겠습니까?</p>
             <div class="pop_up_btn_box">    
                 <button type="submit" class="insert_btn">삭제</button></a>
-                <a href=""><button class="delete_btn">취소</button></a>
+                <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button class="delete_btn">취소</button></a>
             </div>
         </div>
       </div>
