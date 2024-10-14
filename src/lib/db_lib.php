@@ -200,7 +200,6 @@ function my_list_update(PDO $conn, array $arr_param){
     ."      date = :date "
     ."      ,title = :title "
     ."      ,hour = :hour "
-    ."      ,minute = :minute "
     ."      ,calory = :calory "
     ."      ,part = :part "
     ."      ,level = :level "
