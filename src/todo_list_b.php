@@ -25,11 +25,11 @@
 
         $select_id = my_list_select_id($conn, $arr_prepare);
 
-          $arr_prepare = [
+          $arr_prepare_select = [
               "date" => $date
           ];
 
-        $result = my_list_select($conn, $arr_prepare);
+        $result = my_list_select($conn, $arr_prepare_select);
 
       }
     }catch(Throwable $th) {
