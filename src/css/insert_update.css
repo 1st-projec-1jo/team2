@@ -1,14 +1,21 @@
+/* contaner_r */
+
 .container_r{
   padding: 50px;
   letter-spacing: 1px;
 }
 
-.header_btn > button, .title_box > *, .time, .time_box > *
+
+/* box-shadow */
+.header_btn button, .title_box > *, .time, .time_box > *
 , .kcal_box > *, .part, .part_content, .level, .memo_box > *{
   box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.25),
   inset 2px 2px 5px rgba(0, 0, 0, 0.5),
   inset -3px -3px 5px rgba(0, 0, 0, 0.5);
 }
+
+
+* header button */
 
 .header_btn{
   display: flex;
@@ -17,7 +24,7 @@
   margin-bottom: 70px;
 }
 
-.header_btn :first-child {
+.header_btn :first-child button {
   background-color: #f0bb8e;
   border-radius: 30px;
   font-size: 1.2rem;
@@ -27,7 +34,7 @@
   line-height: 25px;
 }
 
-.header_btn :first-child:hover{
+.header_btn :first-child button:hover{
   background-color: #d3833f;
 }
 
@@ -45,13 +52,15 @@
   background-color: #f24f4f;
 }
 
+
+/* contents */
+
 .title, .time, .kcal, .part, .level{
   background-color: #f0bb8e;
   border-radius: 30px;
   padding: 10px;
   width: 120px;
   height: 60px;
-  /* line-height: 40px; */
   font-size: 1.1rem;
   margin-bottom: 30px;
   display: flex;
@@ -162,14 +171,3 @@
   box-shadow:
   inset 0px 0px 5px white;
 }
-
-
-/* 
-
-box-shadow: 25px 25px 75px rgba(0, 0, 0, 0.25),
-10px 10px 70px rgba(0, 0, 0, 0.25),
-inset 5px 5px 10px rgba(0, 0, 0, 0.5),
-inset 5px 5px 20px rgba(255, 255, 255, 0.2),
-inset -5px -5px 15px rgba(0, 0, 0, 0.75);
-
- */
