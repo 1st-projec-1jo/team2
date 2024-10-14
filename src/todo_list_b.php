@@ -1,7 +1,5 @@
 <?php
   // 여기에 일정 관리 리스트 처리, $result와 $select_id 구해야함
-  require_once($_SERVER["DOCUMENT_ROOT"]."/config.php");
-  require_once(MY_PATH_DB_LIB);
 
   $conn = null;
 
