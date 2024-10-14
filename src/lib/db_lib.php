@@ -67,7 +67,7 @@ function my_list_select_id(PDO $conn, array $arr_param) {
     throw new Exception("쿼리 실행 실패");
   }
 
-  return $stmt -> fetchAll();
+  return $stmt -> fetch();
 }
 
 function my_pop_up_count_select(PDO $conn, array $arr_param) {
