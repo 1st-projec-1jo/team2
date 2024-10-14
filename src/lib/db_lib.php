@@ -22,26 +22,6 @@ function my_db_conn() {
  * ↓ 상기님 파트
 *******************************************************************************************/
 
-
-
-/*******************************************************************************************
- * ↓ 경진님 파트
-*******************************************************************************************/
-
-
-
-/*******************************************************************************************
- * ↓ 주연님 파트
-*******************************************************************************************/
-
-
-
-/*******************************************************************************************
- * ↓ 현석님 파트
-*******************************************************************************************/
-
-
-
 function my_list_select(PDO $conn, array $arr_param){
 
   $sql = 
@@ -110,6 +90,64 @@ function my_pop_up_count_select(PDO $conn, array $arr_param) {
 
     return $stmt->fetch()["cnt"];
 }
+
+function my_project_delete(PDO $conn, array $arr_param) {
+  $sql =
+    " UPDATE "
+    ." sports_cal "
+    ." SET "
+    ." updated_at = NOW() "
+    ." ,deleted_at = NOW() "
+    ." WHERE "
+    ." id = :id "
+  ;
+
+  $stmt = $conn->prepare($sql); // 쿼리 준비
+  $result_flg = $stmt->execute($arr_param); // 쿼리 실행
+
+  if(!$result_flg){
+    throw new Exception("쿼리 실행 실패");
+  }
+
+  $result_cnt = $stmt->rowCount();
+
+  if($result_cnt !== 1) {
+    throw new Exception("delete Count 이상");
+  }
+
+  return true;
+}
+
+function my_project_update_popup(PDO $conn, array $arr_param) {
+  $sql =
+    " UPDATE "
+    ." sports_cal "
+    ." SET "
+    ." updated_at = NOW() "
+    ." ,complete = :complete "
+    ." WHERE "
+    ." id = :id "
+  ;
+
+  $stmt = $conn->prepare($sql); // 쿼리 준비
+  $result_flg = $stmt->execute($arr_param); // 쿼리 실행
+
+  if(!$result_flg){
+    throw new Exception("쿼리 실행 실패");
+  }
+
+  $result_cnt = $stmt->rowCount();
+
+  if($result_cnt !== 1) {
+    throw new Exception("delete Count 이상");
+  }
+
+  return true;
+}
+
+/*******************************************************************************************
+ * ↓ 경진님 파트
+*******************************************************************************************/
 
 /**
  * Insert 처리
@@ -189,56 +227,13 @@ function my_list_update(PDO $conn, array $arr_param){
   return $stmt->fetchAll();
 }
 
-function my_project_delete(PDO $conn, array $arr_param) {
-  $sql =
-    " UPDATE "
-    ." sports_cal "
-    ." SET "
-    ." updated_at = NOW() "
-    ." ,deleted_at = NOW() "
-    ." WHERE "
-    ." id = :id "
-  ;
+/*******************************************************************************************
+ * ↓ 주연님 파트
+*******************************************************************************************/
 
-  $stmt = $conn->prepare($sql); // 쿼리 준비
-  $result_flg = $stmt->execute($arr_param); // 쿼리 실행
 
-  if(!$result_flg){
-    throw new Exception("쿼리 실행 실패");
-  }
 
-  $result_cnt = $stmt->rowCount();
+/*******************************************************************************************
+ * ↓ 현석님 파트
+*******************************************************************************************/
 
-  if($result_cnt !== 1) {
-    throw new Exception("delete Count 이상");
-  }
-
-  return true;
-}
-
-function my_project_update_popup(PDO $conn, array $arr_param) {
-  $sql =
-    " UPDATE "
-    ." sports_cal "
-    ." SET "
-    ." updated_at = NOW() "
-    ." ,complete = :complete "
-    ." WHERE "
-    ." id = :id "
-  ;
-
-  $stmt = $conn->prepare($sql); // 쿼리 준비
-  $result_flg = $stmt->execute($arr_param); // 쿼리 실행
-
-  if(!$result_flg){
-    throw new Exception("쿼리 실행 실패");
-  }
-
-  $result_cnt = $stmt->rowCount();
-
-  if($result_cnt !== 1) {
-    throw new Exception("delete Count 이상");
-  }
-
-  return true;
-}
