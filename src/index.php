@@ -29,7 +29,7 @@ try {
   <div class="index">
     <h1>우주인의 데일리 루틴</h1>
     <div class="index_btn">
-      <a href="/main_no.php"><button type="button" class="start">시작</button></a>
+      <a href="/main.php"><button type="button" class="start">시작</button></a>
     </div>
   </div>
 </body>
