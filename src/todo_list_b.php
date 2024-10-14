@@ -19,10 +19,18 @@
           $conn = my_db_conn();
 
           $arr_prepare = [
+            "date" => $date
+            ,"id" => $id
+        ];
+
+        $select_id = my_list_select_id($conn, $arr_prepare);
+
+          $arr_prepare = [
               "date" => $date
           ];
 
-          $result = my_list_select($conn, $arr_prepare);
+        $result = my_list_select($conn, $arr_prepare);
+
       }
     }catch(Throwable $th) {
         require_once(MY_PATH_ERROR);

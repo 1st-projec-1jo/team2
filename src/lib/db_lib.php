@@ -33,8 +33,9 @@ function my_list_select(PDO $conn, array $arr_param){
   ."         deleted_at IS NULL "
   ."         AND date = :date "
   ." ORDER BY         "
-  ."           created_at DESC, "
-  ."           id DESC          "
+  ."           complete ASC, "
+  ."           created_at DESC "
+  // ."           id DESC          "
   ;
 
   $stmt = $conn->prepare($sql);

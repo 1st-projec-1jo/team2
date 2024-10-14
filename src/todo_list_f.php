@@ -1,39 +1,33 @@
 <div class="container_l">
   <div class="date_btn">
-    <a href="./main.html"><button type="button">2024-10-08</button></a>
+    <a href="./main.html"><button type="button"><?php echo $result["date"] ?></button></a>
   </div>
   <hr>
   <br>
   <hr>
   <div class="list_box">
-    <div class="list">
-      <div class="list_check">
-        <button type="button" class="chk_btn"><img src="./img/free-icon-check-7543187.png" width="30px" height="30px"></button>
-      </div>
-      <div class="list_title">
-        <a href="./detail.html"><div>수영</div></a>
-      </div>
-    </div>
-    <div class="list">
-      <div class="list_check">
-        <button type="button" class="chk_btn"><img src="./img/free-icon-check-7543187.png" width="30px" height="30px"></button>
-      </div>
-      <div class="list_title">
-        <a href="./detail.html"><div>축구</div></a>
-      </div>
-    </div><div class="list">
-      <div class="list_check">
-        <button type="button" class="chk_btn"><img src="./img/free-icon-check-7543187.png" width="30px" height="30px"></button>
-      </div>
-      <div class="list_title">
-        <a href="./detail.html"><div>헬스</div></a>
-      </div>
-    </div>
+
+
+    <?php foreach($result as $value) { ?>
+       <div class="list">
+            <div class="list_check 
+            <?php if($id === $value["id"]) { ?> list_selected <?php } ?>
+            <?php if($value["complete"])   { ?> list_chked <?php } ?>">
+              <!-- selected -> list_selected -->
+              <a href="/check_popup.php?date=<?php echo $date ?>&id=<?php $value["id"] ?>"><button type="button" class="chk_btn"><img src="./img/free-icon-check-7543187.png" width="30px" height="30px"></button></a>
+            </div>
+            <div class="list_title">
+              <a href="/detail.php?date=<?php echo $date ?>&id=<?php $value["id"] ?>"><div><?php echo $result["title"]?></div></a>
+            </div>
+          </div>
+          <?php } ?>
+    
     <div class="list_plus">
       <div class="list_plus_btn">
-        <a href="./insert.html"><button type="button">+</button></a>
+        <a href="./insert.php?date<?php echo $date ?>"><button type="button">+</button></a>
       </div>            
     </div>
+
   </div>
 </div>
 
