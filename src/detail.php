@@ -23,7 +23,7 @@
     <div class="container_box">
 
       <!-- 일정 관리 리스트(프론트) 호출 -->
-      <?php require_once(MY_LIST_FORNT) ?>
+      <?php require_once(MY_LIST_FRONT) ?>
 
       <div class="container_r"></div>
     </div>
