@@ -67,6 +67,29 @@ function my_list_select(PDO $conn, array $arr_param){
   return $stmt -> fetchAll();
 }
 
+function my_list_select_id(PDO $conn, array $arr_param){
+
+  $sql = 
+  " SELECT            "
+  ." *                "
+  ." FROM             "
+  ."         sports_cal    "
+  ." WHERE            "
+  ."         deleted_at IS NULL "
+  ."         AND date = :date "
+  ."         AND id = :id "
+  ;
+
+  $stmt = $conn->prepare($sql);
+  $result_flg = $stmt -> execute($arr_param);
+
+  if(!$result_flg){
+    throw new Exception("쿼리 실행 실패");
+  }
+
+  return $stmt -> fetchAll();
+}
+
 function my_pop_up_count_select(PDO $conn, array $arr_param) {
   $sql =
     " SELECT            "
@@ -199,6 +222,33 @@ function my_project_delete(PDO $conn, array $arr_param) {
     ." SET "
     ." updated_at = NOW() "
     ." ,deleted_at = NOW() "
+    ." WHERE "
+    ." id = :id "
+  ;
+
+  $stmt = $conn->prepare($sql); // 쿼리 준비
+  $result_flg = $stmt->execute($arr_param); // 쿼리 실행
+
+  if(!$result_flg){
+    throw new Exception("쿼리 실행 실패");
+  }
+
+  $result_cnt = $stmt->rowCount();
+
+  if($result_cnt !== 1) {
+    throw new Exception("delete Count 이상");
+  }
+
+  return true;
+}
+
+function my_project_update_popup(PDO $conn, array $arr_param) {
+  $sql =
+    " UPDATE "
+    ." sports_cal "
+    ." SET "
+    ." updated_at = NOW() "
+    ." ,complete = :complete "
     ." WHERE "
     ." id = :id "
   ;

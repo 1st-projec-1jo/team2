@@ -130,10 +130,13 @@ a{
   justify-content: center;
 }
 
-.list_plus_btn p {
-  margin-top: 10px;
+.list_plus_btn button{
+  background-color: transparent;
+  width: 50px;
+  height: 50px;
+  font-size: 1.3rem;
+  cursor: pointer;
 }
-/* +버튼 insert페이지로 가는 a태그 넣어서 .list_plus_btn > p 에서 수정했습니다 */
 
 .chk_btn{
   border: none;
