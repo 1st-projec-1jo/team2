@@ -40,7 +40,7 @@ function my_list_select(PDO $conn, array $arr_param){
   return $stmt -> fetchAll();
 }
 
-function my_list_select_id(PDO $conn, array $arr_param){
+function my_list_select_id(PDO $conn, array $arr_param) {
 
   $sql = 
   " SELECT            "
@@ -83,32 +83,6 @@ function my_pop_up_count_select(PDO $conn, array $arr_param) {
 
     return $stmt->fetch()["cnt"];
 }
-
-
-
-function my_list_select_id(PDO $conn, array $arr_param) {
-  $sql =
-    " SELECT            "
-    ."  * "
-    ."  FROM             "
-    ."         sports_cal    "
-    ." WHERE            "
-    ."         deleted_at IS NULL "
-    ."       AND date = :date "
-    ;
-
-    $stmt = $conn->prepare($sql);
-    $result_flg = $stmt -> execute($arr_param);
-
-    if(!$result_flg){
-      throw new Exception("쿼리 실행 실패");
-    }
-
-    return $stmt->fetchAll();
-
-}
-
-
 
 /**
  * Insert 처리
