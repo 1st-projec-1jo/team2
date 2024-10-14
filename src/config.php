@@ -13,5 +13,7 @@ define("MY_MARIADB_DSN", "mysql:host=".MY_MARIADB_HOST.";port=".MY_MARIADB_PORT.
 define("MY_PATH_ROOT", $_SERVER["DOCUMENT_ROOT"]); // web server document root
 define("MY_PATH_DB_LIB", MY_PATH_ROOT."/lib/db_lib.php"); // DB 라이브러리
 define("MY_PATH_ERROR", MY_PATH_ROOT."/error.php"); // Error page
+define("MY_LIST_FORNT", MY_PATH_ROOT."/todo_list_f.php");
+define("MY_LIST_BACK", MY_PATH_ROOT."/todo_list_b.php");
 
 /* 로직 설정 */
