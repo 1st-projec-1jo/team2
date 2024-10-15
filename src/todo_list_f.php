@@ -6,15 +6,16 @@
   <br>
   <hr>
   <div class="list_box">
-
-
     <?php foreach($result as $value) { ?>
        <div class="list <?php 
         if($id === $value["id"]) { ?> list_selected <?php } ?> <?php
-        if($value["complete"] === 1)   { ?> list_chked <?php } ?>">
+        if($value["complete"] === 1)   { ?> list_title list_chked <?php } ?> ">
             <div class="list_check">
               <!-- selected -> list_selected -->
-              <a href="/check_popup.php?date=<?php echo $date ?>&id=<?php echo $value["id"] ?>"><button type="button" class="chk_btn"><img src="./img/free-icon-check-7543187.png" width="30px" height="30px"></button></a>
+              <a href="/check_popup.php?date=<?php echo $date ?>&id=<?php echo $value["id"] ?>">
+                <button type="button" class="chk_btn<?php 
+                if($value["complete"] === 1) { ?> chk_green <?php } ?>"></button>
+              </a>
             </div>
             <div class="list_title">
               <a href="/detail.php?date=<?php echo $date ?>&id=<?php echo $value["id"] ?>"><div><?php echo $value["title"]?></div></a>
@@ -27,7 +28,7 @@
         <a href="./insert.php?date<?php echo $date ?>"><button type="button">+</button></a>
       </div>            
     </div>
-
+ 
   </div>
 </div>
 
