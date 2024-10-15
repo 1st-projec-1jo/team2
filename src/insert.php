@@ -13,11 +13,7 @@ try {
 
     $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
     $date = isset($_GET["date"]) ? $_GET["date"] : "";
-    // $title = isset($_GET["title"]) ? $_GET["title"] : 0;
 
-    // if($id < 1) {
-    //   throw new Exception("파라미터 오류");
-    // }
 
     $arr_prepare = [
       "date" => $date
@@ -25,11 +21,12 @@ try {
 
 
     $result = my_list_select($conn, $arr_prepare);
-
-    
   } else {
     
     $conn = my_db_conn();
+
+    $id = isset($_POST["id"]) ? (int)$_POST["id"] : 0;
+    $date = isset($_POST["date"]) ? $_POST["date"] : "";
 
     $arr_prepare  = [
       "date" => $_POST["date"]
@@ -46,7 +43,8 @@ try {
 
     $conn -> commit();
 
-    header("Location: /detial.php?date=".$date);
+
+    header("Location: /detail.php?date=".$date);
     exit;
   }
 } catch(Throwable $th) {

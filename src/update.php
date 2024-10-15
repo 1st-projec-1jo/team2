@@ -62,7 +62,7 @@ try{
 
     $conn->commit();
 
-    header("Location: /deatil.php?id=".$id."date=".$date);
+    header("Location: /detail.php?date=".$date."&id=".$id);
     exit;
 
   }
