@@ -106,6 +106,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/check_popup.css">
+    <link rel="stylesheet" href="./css/common.css">
     <title>Document</title>
 </head>
 <body>
@@ -116,11 +117,12 @@
   <div class="container">
     <div class="container_box">
         
+
      <?php require_once(MY_LIST_FRONT) ?>
       
 
-      <?php if($select_id["complete"] === 0) { ?>
-      <div class="container_r">
+    <?php if($select_id["complete"] === 0) { ?>
+    <div class="container_r">
          <div class="delete_box">
                     <p><?php echo $select_id["title"] ?></p>
                     <p>이 운동 일정을 완료하시겠습니까?</p>
@@ -129,9 +131,9 @@
                     <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button class="delete_btn">취소</button></a>
              </div>
         </div>
-    </div>
+     </div>
     <?php } ?>
-      <?php if($select_id["complete"] === 1) { ?>
+    <?php if($select_id["complete"] === 1) { ?>
       <div class="container_r">
          <div class="delete_box">
                     <p><?php echo $select_id["title"] ?></p>
