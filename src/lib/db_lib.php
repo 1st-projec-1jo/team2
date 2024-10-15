@@ -228,7 +228,28 @@ function my_list_update(PDO $conn, array $arr_param){
 /*******************************************************************************************
  * ↓ 주연님 파트
 *******************************************************************************************/
+function main_cal_list_cnt(PDO $conn, array $arr_param) {
+  $sql =
+    " SELECT "
+    ."      date "
+    ."      ,COUNT(*) cnt "
+    ." FROM "
+    ."      sports_cal "
+    ." WHERE "
+    ."    deleted_at IS NULL "
+	  ." AND DATE >= :start_day "
+	  ." AND DATE <= :end_day "
+    ." GROUP BY "
+    ."    date "
+    ;
+    $stmt = $conn->prepare($sql);
+    $result_flg = $stmt -> execute($arr_param);
 
+    if(!$result_flg){
+      throw new Exception("쿼리 실행 실패");
+    }
+    return $stmt -> fetchAll();
+}
 
 
 /*******************************************************************************************

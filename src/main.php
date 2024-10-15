@@ -7,39 +7,38 @@ $conn = null;
 
 try {
 
-
-
-
-} catch(Throwable $th) {
-    echo $th->getMessage();
-    exit;
-}
-
-
-
-
-
     //달력 구현하기
 	// GET으로 넘겨 받은 year값이 있다면 넘겨 받은걸 year변수에 적용하고 없다면 현재 년도
 	$year = isset($_GET['year']) ? $_GET['year'] : date('Y');
 	// GET으로 넘겨 받은 month값이 있다면 넘겨 받은걸 month변수에 적용하고 없다면 현재 월
 	$month = isset($_GET['month']) ? $_GET['month'] : date('m');
     $m = isset($_GET['month']) ? $_GET['month'] : date('m');
-	$date_ym = "$year-$month"; // 현재 날짜
+	$date = "$year-$month"; // 현재 날짜
 	$time = strtotime($date); // 현재 날짜의 타임스탬프
 	$start_week = date('w', $time); // 1. 시작 요일
-	$total_day = date('t', $time); // 2. 현재 달의 총 날짜
+	$day = date("t", $time); // 2. 현재 달의 총 날짜(2월 28일 설정)
+    $today  = date("Ymd");
 
-    // 필요없는 느낌
-	$total_week = ceil(($total_day + $start_week) / 7);  // 3. 현재 달의 총 주차
-    
-    // 2월 28일 설정
-    $day = date("t", $time);
+    $conn = my_db_conn();
+    $arr_prepare = [
+        "start_day" => $date."-01"
+        , "end_day" => $date."-".$day
+    ];
+    $result = main_cal_list_cnt($conn, $arr_prepare);
+   
+    $arr_day_cnt = [];
 
+    foreach($result as $item) {
+        $arr_day_cnt[$item["date"]] = $item["cnt"];
+    }
 
-
-
+} catch (Throwable $th) {
+    echo $th->getMessage();
+    exit;
+}
 ?>
+
+
 
 
 
@@ -126,11 +125,24 @@ try {
     
             <?php for($i=1; $i<=$day; $i++) { ?>
                 
-                <a href="/main_popup.php?date=<?php echo $date_ym.'-'.$i ?>">
-                    <div><?php echo $i ?></div>
-                    <!-- if로 데이터 받아오기 -->
+                <a href="/main_popup.php?date=<?php echo $date.'-'.$i ?>">
+                    <div ><?php echo $i ?></div>
                     
-                    <p><?php echo $cnt?>개의 일정</p>
+                    <!-- if로 데이터 받아오기 -->
+                    <?php
+                    if(array_key_exists($date.'-'.str_pad((string)$i, 2, "0", STR_PAD_LEFT), $arr_day_cnt)) {
+                    ?>
+                        
+                        <p><?php echo $arr_day_cnt[$date.'-'.str_pad((string)$i, 2, "0", STR_PAD_LEFT)] ?>개의 일정</p>
+                        
+                    <?php
+                    }
+                    ?>
+
+                    <!-- 현재 날짜에 숫자 동그라미 색깔 지정 -->
+
+                    
+                    
 
                 </a>
                     
