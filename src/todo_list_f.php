@@ -24,7 +24,7 @@
     
     <div class="list_plus">
       <div class="list_plus_btn">
-        <a href="./insert.php?date<?php echo $date ?>"><button type="button">+</button></a>
+        <a href="./insert.php?date=<?php echo $date ?>"><button type="button">+</button></a>
       </div>            
     </div>
 
