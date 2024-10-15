@@ -17,7 +17,8 @@ try {
 	$time = strtotime($date); // 현재 날짜의 타임스탬프
 	$start_week = date('w', $time); // 1. 시작 요일
 	$day = date("t", $time); // 2. 현재 달의 총 날짜(2월 28일 설정)
-    $today  = date("Ymd");
+    $today  = date("Y-m-d");
+    $total_week = ceil(($day + $start_week) / 7);  // 3. 현재 달의 총 주차
 
     $conn = my_db_conn();
     $arr_prepare = [
@@ -62,28 +63,28 @@ try {
                     
                         <!-- 이전달과 다음달 버튼 -->
                         <?php if($m ==1): ?>
-                        <a href="/main.php?year=<?php echo $year-1?>&month=<?php echo "0".$month+11?>">이전 달</a>
+                        <a href="/main.php?year=<?php echo $year-1?>&month=<?php echo $month+11?>"><img src="/img/icon_rocket_l.png" width="40px" height="35px"></a>
                         <h2><?php echo $year."-".$month ?></h2>
-                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo "0".$month+1 ?>">다음 달</a>
+                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo $month+1 ?>"><img src="/img/icon_rocket_r.png" width="40px" height="35px"></a>
                         
                         
                         <?php elseif($m ==12):?> 
-                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo "0".$month-1 ?>">이전 달</a>
+                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo $month-1 ?>"><img src="/img/icon_rocket_l.png" width="40px" height="35px"></a>
                         <h2><?php echo $year."-".$month ?></h2>
-                        <a href="/main.php?year=<?php echo $year+1 ?>&month=<?php echo "0".$month=1 ?>">다음 달</a>
+                        <a href="/main.php?year=<?php echo $year+1 ?>&month=<?php echo $month=1 ?>"><img src="/img/icon_rocket_r.png" width="40px" height="35px"></a>
                     
                     
                         <?php else: ?> 
-                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo "0".$month-1 ?>">이전 달</a>
+                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo $month-1 ?>"><img src="/img/icon_rocket_l.png" width="40px" height="35px"></a>
                         <h2><?php echo $year."-".$month ?></h2>
-                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo "0".$month+1 ?>">다음 달</a>
+                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo $month+1 ?>"><img src="/img/icon_rocket_r.png" width="40px" height="35px"></a>
                         <?php endif ?>  
                     </div>
 
                 <!-- 날짜 선택 방법1. 셀렉트 박스로 -->
                 <form action="/main.php">
                 <select name="year" id="year">
-                    <?php for($y=2000; $y<=2024; $y++) { ?>
+                    <?php for($y=2000; $y<=2050; $y++) { ?>
                     <option value="<?php echo $y?>"<?php if($year==$y) echo "selected"; ?>><?php echo $y?>년</option>
                     <?php }?>
                 </select>
@@ -98,7 +99,7 @@ try {
                     <?php }?>
                 </select>
 
-                <button type="submit">이동</button>
+                <button class="btn_move" type="submit">이동</button>
                 </form>
             </div>
 
@@ -117,38 +118,47 @@ try {
 
         <!-- 날짜 -->
         <div class="days">
+            <!-- 달력에 날짜가 없는 빈공간 표시 (앞)-->
             <?php for($i=0; $i<$start_week; $i++) { ?>
-                    <div></div>
-                
-                    
+                    <div class="day_blank"></div>
             <?php }?>
     
+            <!-- 1 ~ 31날짜 반복 표시 -->
             <?php for($i=1; $i<=$day; $i++) { ?>
+
+            <!-- 현재 날짜에 숫자 동그라미 색깔 지정 -->
+            <?php if($date.'-'.str_pad((string)$i, 2, "0", STR_PAD_LEFT) === $today) {?>
+                <a href="/main_popup.php?date=<?php echo $date.'-'.str_pad((string)$i, 2, "0", STR_PAD_LEFT) ?>">
+                <button class="today_btn" type="button"><?php echo $i ?></button> 
+            <?php }?>
+
+            <?php if($date.'-'.str_pad((string)$i, 2, "0", STR_PAD_LEFT) !== $today) { ?>
+                <a href="/main_popup.php?date=<?php echo $date.'-'.str_pad((string)$i, 2, "0", STR_PAD_LEFT) ?>">
+                <div><?php echo $i ?></div> 
+            <?php }?>
+                    
+            <!-- 일정 데이터 받아오기 -->
+            <?php
+            if(array_key_exists($date.'-'.str_pad((string)$i, 2, "0", STR_PAD_LEFT), $arr_day_cnt)) {
+            ?>
                 
-                <a href="/main_popup.php?date=<?php echo $date.'-'.$i ?>">
-                    <div ><?php echo $i ?></div>
-                    
-                    <!-- if로 데이터 받아오기 -->
-                    <?php
-                    if(array_key_exists($date.'-'.str_pad((string)$i, 2, "0", STR_PAD_LEFT), $arr_day_cnt)) {
-                    ?>
-                        
-                        <p><?php echo $arr_day_cnt[$date.'-'.str_pad((string)$i, 2, "0", STR_PAD_LEFT)] ?>개의 일정</p>
-                        
-                    <?php
-                    }
-                    ?>
-
-                    <!-- 현재 날짜에 숫자 동그라미 색깔 지정 -->
-
-                    
-                    
+            <p><img src="/img/icon_rocket.png" width="30px" height="25px"><?php echo $arr_day_cnt[$date.'-'.str_pad((string)$i, 2, "0", STR_PAD_LEFT)] ?>개의 일정</p>
+                
+            <?php
+            }
+            ?>
 
                 </a>
                     
             <?php }?>
-        </div>
 
+                <!-- 달력에 날짜가 없는 빈공간 표시 (끝) -->
+                <?php for($i=0; $i<((($total_week)*7)-(($day)+$start_week)); $i++) { ?>
+                            <div class="day_blank"></div>
+                <?php } ?>
+        
+        
+            </div>
 
 
         
