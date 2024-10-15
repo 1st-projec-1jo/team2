@@ -5,22 +5,17 @@ require_once(MY_PATH_DB_LIB);
 
 $conn = null;
 
-// count 필요없고
 try {
 
 
-    //DB연결
-    $conn = my_db_conn();
 
-    $arr_prepare = [
-        "date" => $date
-    ];
-    $cnt = my_pop_up_count_select($conn, $arr_prepare);
-    echo $cnt;
+
 } catch(Throwable $th) {
-    require_once(MY_PATH_ERROR); //에러 페이지
+    echo $th->getMessage();
     exit;
 }
+
+
 
 
 
@@ -30,7 +25,7 @@ try {
 	// GET으로 넘겨 받은 month값이 있다면 넘겨 받은걸 month변수에 적용하고 없다면 현재 월
 	$month = isset($_GET['month']) ? $_GET['month'] : date('m');
     $m = isset($_GET['month']) ? $_GET['month'] : date('m');
-	$date = "$year-$month"; // 현재 날짜
+	$date_ym = "$year-$month"; // 현재 날짜
 	$time = strtotime($date); // 현재 날짜의 타임스탬프
 	$start_week = date('w', $time); // 1. 시작 요일
 	$total_day = date('t', $time); // 2. 현재 달의 총 날짜
@@ -41,8 +36,8 @@ try {
     // 2월 28일 설정
     $day = date("t", $time);
 
-    //현재날짜
-    $date =date("Y-m");
+
+
 
 ?>
 
@@ -131,7 +126,7 @@ try {
     
             <?php for($i=1; $i<=$day; $i++) { ?>
                 
-                <a href="/pop_up.php?date=<?php echo $date.'-'.$i ?>">
+                <a href="/main_popup.php?date=<?php echo $date_ym.'-'.$i ?>">
                     <div><?php echo $i ?></div>
                     <!-- if로 데이터 받아오기 -->
                     
