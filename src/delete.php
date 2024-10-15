@@ -1,28 +1,12 @@
 <?php
     require_once($_SERVER["DOCUMENT_ROOT"]."/config.php");
     require_once(MY_PATH_DB_LIB);
+    require_once(MY_LIST_BACK);
 
     $conn = null;
 
     try {
         if(strtoupper($_SERVER["REQUEST_METHOD"]) === "GET") {
-            
-            $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
-            
-            $date = isset($_GET["date"]) ? $_GET["date"] : "";
-
-            if($id < 1) {
-                throw new Exception("파라미터 오류");
-            }
-
-            $conn = my_db_conn();
-
-            $arr_prepare = [
-                "date" => $date
-            ];
-
-            $result = my_list_select($conn, $arr_prepare);
-
 
         }else if(strtoupper($_SERVER["REQUEST_METHOD"]) === "POST") {
 
@@ -81,6 +65,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/delete.css">
+    <link rel="stylesheet" href="./css/common.css">
     <title>Document</title>
 </head>
 <body>
@@ -89,31 +74,7 @@
    <input type="hidden" name="date" id="date" value="<?php echo $date ?>">
   <div class="container">
     <div class="container_box">
-      <div class="container_l">
-        <div class="date_btn">
-          <button type="button"><?php echo $date ?></button>
-        </div>
-            <hr>
-            <br>
-            <hr>
-        <div class="list_box">
-            <?php foreach($result as $value) { ?>
-            <div class="list">
-                <div class="list_check">
-                    <button type="button" class="chk_btn"><img src="./img/src/img/free-icon-check-7543187.png" width="30px" height="30px"></button>
-                </div> 
-                <div class="list_title">
-                    <a href="./pop_up.php?date=<?php echo $date ?>&id=<?php echo $value["id"] ?>"><div><?php echo $value["title"] ?></div></a>
-                </div>
-            </div>
-           <?php } ?>
-          <div class="list_plus">
-            <div class="list_plus_btn">
-                <a href="insert.php?date=<?php echo $date ?>"><p>+</p></a>
-            </div>            
-          </div>
-        </div>
-      </div>
+     <?php require_once(MY_LIST_FRONT); ?>
       <div class="container_r">
         <div class="delete_box">
             <p>삭제하면 더이상 되돌릴 수 없습니다.</p>
