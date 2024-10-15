@@ -1,4 +1,30 @@
-<?php 
+<?php
+//데이터 가져오기
+require_once($_SERVER["DOCUMENT_ROOT"]."/config.php"); 
+require_once(MY_PATH_DB_LIB);
+
+$conn = null;
+
+// count 필요없고
+try {
+
+
+    //DB연결
+    $conn = my_db_conn();
+
+    $arr_prepare = [
+        "date" => $date
+    ];
+    $cnt = my_pop_up_count_select($conn, $arr_prepare);
+    echo $cnt;
+} catch(Throwable $th) {
+    require_once(MY_PATH_ERROR); //에러 페이지
+    exit;
+}
+
+
+
+    //달력 구현하기
 	// GET으로 넘겨 받은 year값이 있다면 넘겨 받은걸 year변수에 적용하고 없다면 현재 년도
 	$year = isset($_GET['year']) ? $_GET['year'] : date('Y');
 	// GET으로 넘겨 받은 month값이 있다면 넘겨 받은걸 month변수에 적용하고 없다면 현재 월
@@ -14,6 +40,9 @@
     
     // 2월 28일 설정
     $day = date("t", $time);
+
+    //현재날짜
+    $date =date("Y-m");
 
 ?>
 
@@ -35,46 +64,48 @@
             <div class="main_title">날짜를 선택해주세요</div>
                 <div class="calender">
                     <div class="cal_btn">
+                        
+                    
+                        <!-- 이전달과 다음달 버튼 -->
                         <?php if($m ==1): ?>
-                        <!-- 이전달 -->
-                        <a href="/main.php?year=<?php echo $year-1?>&month=<?php echo $month+11?>">이전 달</a>
+                        <a href="/main.php?year=<?php echo $year-1?>&month=<?php echo "0".$month+11?>">이전 달</a>
                         <h2><?php echo $year."-".$month ?></h2>
-                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo $month+1 ?>">다음 달</a>
+                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo "0".$month+1 ?>">다음 달</a>
                         
                         
                         <?php elseif($m ==12):?> 
-                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo $month-1 ?>">이전 달</a>
+                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo "0".$month-1 ?>">이전 달</a>
                         <h2><?php echo $year."-".$month ?></h2>
-                        <a href="/main.php?year=<?php echo $year+1 ?>&month=<?php echo $month=1 ?>">다음 달</a>
+                        <a href="/main.php?year=<?php echo $year+1 ?>&month=<?php echo "0".$month=1 ?>">다음 달</a>
                     
                     
                         <?php else: ?> 
-                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo $month-1 ?>">이전 달</a>
+                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo "0".$month-1 ?>">이전 달</a>
                         <h2><?php echo $year."-".$month ?></h2>
-                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo $month+1 ?>">다음 달</a>
+                        <a href="/main.php?year=<?php echo $year ?>&month=<?php echo "0".$month+1 ?>">다음 달</a>
                         <?php endif ?>  
                     </div>
 
-        <!-- 날짜 선택 방법1. 셀렉트 박스로 -->
-        <form action="/main.php">
-            <select name="year" id="year">
-                <?php for($y=2000; $y<=2024; $y++) { ?>
-                <option value="<?php echo $y?>"<?php if($year==$y) echo "selected"; ?>><?php echo $y?>년</option>
-                <?php }?>
-            </select>
+                <!-- 날짜 선택 방법1. 셀렉트 박스로 -->
+                <form action="/main.php">
+                <select name="year" id="year">
+                    <?php for($y=2000; $y<=2024; $y++) { ?>
+                    <option value="<?php echo $y?>"<?php if($year==$y) echo "selected"; ?>><?php echo $y?>년</option>
+                    <?php }?>
+                </select>
 
-            <select name="month" id="month">
-                <?php for($m=1; $m<=12; $m++) { ?>
-                <option value="<?php if($m !==10 && $m !==11 && $m!==12) { echo "0".$m;}  
-                else {echo $m;} ?>"<?php if($month==$m) echo "selected"; ?>>
+                <select name="month" id="month">
+                    <?php for($m=1; $m<=12; $m++) { ?>
+                    <option value="<?php if($m !==10 && $m !==11 && $m!==12) { echo "0".$m;}  
+                    else {echo $m;} ?>"<?php if($month==$m) echo "selected"; ?>>
 
 
-                <?php echo $m ?>월</option>
-                <?php }?>
-            </select>
+                    <?php echo $m ?>월</option>
+                    <?php }?>
+                </select>
 
-            <button type="submit">이동</button>
-            </form>
+                <button type="submit">이동</button>
+                </form>
             </div>
 
         
@@ -99,10 +130,12 @@
             <?php }?>
     
             <?php for($i=1; $i<=$day; $i++) { ?>
-                <a href="/pop_up.php">
+                
+                <a href="/pop_up.php?date=<?php echo $date.'-'.$i ?>">
                     <div><?php echo $i ?></div>
                     <!-- if로 데이터 받아오기 -->
-                    <p>개의 일정</p>
+                    
+                    <p><?php echo $cnt?>개의 일정</p>
 
                 </a>
                     
