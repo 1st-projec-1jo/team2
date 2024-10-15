@@ -166,6 +166,7 @@ a{
   height: 30px;
   top: 10px;
   left: 20px;
+  cursor: pointer;
 }
 
 .chk_btn img{

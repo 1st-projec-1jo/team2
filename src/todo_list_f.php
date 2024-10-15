@@ -7,8 +7,11 @@
   <hr>
   <div class="list_box">
     <?php foreach($result as $value) { ?>
-       <div class="list <?php 
-        if($id === $value["id"]) { ?> list_selected <?php } ?> <?php
+       <div class="list 
+       <?php  if(isset($id)) { ?>
+       <?php 
+        if($id === $value["id"]) { ?> list_selected <?php } ?> <?php } ?>
+        <?php
         if($value["complete"] === 1)   { ?> list_title list_chked <?php } ?> ">
             <div class="list_check">
               <!-- selected -> list_selected -->

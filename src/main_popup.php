@@ -50,7 +50,7 @@
             <?php if($result !== 0) { ?>
             <div class="pop_up_box">
                 <div class="back_btn">
-                <a href="main.php?year=<?php $ex[0] ?>&month=<?php $ex[1]?>"><button class="X_btn"></button></a>
+                <a href="main.php?year=<?php echo $ex[0] ?>&month=<?php echo $ex[1]?>"><button class="X_btn"></button></a>
                 </div>
                 <p class="pop_up_cal"><?php echo $date ?></p>
                 <br>

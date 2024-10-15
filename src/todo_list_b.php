@@ -5,24 +5,27 @@
 
   try {
       if(strtoupper($_SERVER["REQUEST_METHOD"]) === "GET") {
-          
-          $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
+
+          // $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;    
           
           $date = isset($_GET["date"]) ? $_GET["date"] : "";
 
-          if($id < 1) {
-              throw new Exception("파라미터 오류");
-          }
-
           $conn = my_db_conn();
 
-          $arr_prepare = [
-            "date" => $date
-            ,"id" => $id
-        ];
+              if(isset($_GET["id"])) {
+                $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
 
-        $select_id = my_list_select_id($conn, $arr_prepare);
+                if($id < 1) {
+                    throw new Exception("파라미터 오류");
+                }
 
+                $arr_prepare = [
+                  "date" => $date
+                  ,"id" => $id
+              ];
+              $select_id = my_list_select_id($conn, $arr_prepare);
+            }
+      
           $arr_prepare_select = [
               "date" => $date
           ];
