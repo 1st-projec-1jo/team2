@@ -8,24 +8,24 @@ $conn = null;
 try {
   if(strtoupper($_SERVER["REQUEST_METHOD"]) === "GET") {
 
-    $conn = my_db_conn();
+    // $conn = my_db_conn();
       
 
-    $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
-    $date = isset($_GET["date"]) ? $_GET["date"] : "";
+    // $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
+    // $date = isset($_GET["date"]) ? $_GET["date"] : "";
 
 
-    $arr_prepare = [
-      "date" => $date
-    ];
+    // $arr_prepare = [
+    //   "date" => $date
+    // ];
 
 
-    $result = my_list_select($conn, $arr_prepare);
+    // $result = my_list_select($conn, $arr_prepare);
   } else {
     
     $conn = my_db_conn();
 
-    $id = isset($_POST["id"]) ? (int)$_POST["id"] : 0;
+    // $id = isset($_POST["id"]) ? (int)$_POST["id"] : 0;
     $date = isset($_POST["date"]) ? $_POST["date"] : "";
 
     $arr_prepare  = [
@@ -44,7 +44,7 @@ try {
     $conn -> commit();
 
 
-    header("Location: /detail.php?date=".$date);
+    header("Location: /detail.php?date=".$date."&id=".$id);
     exit;
   }
 } catch(Throwable $th) {

@@ -128,11 +128,12 @@
                     <p>이 운동 일정을 완료하시겠습니까?</p>
              <div class="pop_up_btn_box">    
                      <button type="submit" class="insert_btn">완료</button></a>
-                    <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button class="delete_btn">취소</button></a>
+                    <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button type="button" class="delete_btn">취소</button></a>
              </div>
         </div>
      </div>
     <?php } ?>
+    
     <?php if($select_id["complete"] === 1) { ?>
       <div class="container_r">
          <div class="delete_box">
@@ -141,7 +142,7 @@
                     <p>미완료 상태로 되돌리시겠습니까?</p>
              <div class="pop_up_btn_box">    
                      <button type="submit" class="insert_btn">확인</button></a>
-                    <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button class="delete_btn">취소</button></a>
+                    <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button type="button" class="delete_btn">취소</button></a>
              </div>
         </div>
       </div>
