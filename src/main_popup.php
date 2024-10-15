@@ -14,6 +14,8 @@
 
 
         $result = my_pop_up_count_select($conn, $arr_prepare);
+
+        $ex = explode("-", $date);
     }
     catch(Throwable $th) {
        echo $th->getMessage();
@@ -40,7 +42,7 @@
                 <p class="pop_up_content">이 날짜에 새로 작성하시겠습니까?</p>
                 <div class="pop_up_btn_box">    
                 <a href="insert.php?date=<?php echo $date ?>"><button class="insert_btn">작성</button></a>
-                <a href="main.php"><button class="delete_btn">취소</button></a>
+                <a href="main.php?year=<?php echo $ex[0] ?>&month=<?php echo $ex[1]?>"><button class="delete_btn">취소</button></a>
                 </div>
             </div>
             <?php } ?>
@@ -48,7 +50,7 @@
             <?php if($result !== 0) { ?>
             <div class="pop_up_box">
                 <div class="back_btn">
-                <a href="main.php"><button class="X_btn"></button></a>
+                <a href="main.php?year=<?php $ex[0] ?>&month=<?php $ex[1]?>"><button class="X_btn"></button></a>
                 </div>
                 <p class="pop_up_cal"><?php echo $date ?></p>
                 <br>
