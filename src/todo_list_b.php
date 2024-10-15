@@ -1,4 +1,4 @@
-<?php1
+<?php
   // 여기에 일정 관리 리스트 처리, $result와 $select_id 구해야함
 
   $conn = null;
@@ -31,6 +31,8 @@
           ];
 
         $result = my_list_select($conn, $arr_prepare_select);
+
+        $ex = explode("-", $date);
 
       }
     }catch(Throwable $th) {
