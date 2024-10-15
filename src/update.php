@@ -25,8 +25,6 @@ try{
 
     $select_id = my_list_select_id($conn, $arr_prepare);
 
-
-  
   } else {
 
     $id = isset($_POST["id"]) ? (int)$_POST["id"] : 0;
@@ -62,7 +60,7 @@ try{
 
     $conn->commit();
 
-    header("Location: /detail.php?date=".$date."&id=".$id);
+    header("Location: /detail.php?date=".$date."&id=".$id."#list".$id);
     exit;
 
   }
@@ -110,33 +108,33 @@ try{
           </div>
           <div class="title_box">
             <div class="title">제목</div>
-            <input class="title_content" name="title" id="title" value="<?php echo $value["title"] ?>">
+            <input class="title_content" name="title" id="title" value="<?php echo $select_id["title"] ?>">
           </div>
             
           <div class="exe_time">
             <div class="time">운동 시간</div>
             <div class="time_box">
-              <input class="time_content" name="hour" id="hour" value="<?php echo $value["hour"] ?>">
+              <input class="time_content" name="hour" id="hour" value="<?php echo $select_id["hour"] ?>">
               <div class="time_text">시간</div>
             </div>
           </div>
           
           <div class="kcal_box">
             <div class="kcal">칼로리</div>
-            <input class="kcal_content" value="<?php echo $value["calory"] ?>">
+            <input class="kcal_content" value="<?php echo $select_id["calory"] ?>">
           </div>
 
           <div class="body_box">
             <div class="part">운동 부위</div>
             <div>
               <select name="part" id="part" class="part_content">
-                <option value="유산소" <?php echo $value["part"] === "유산소" ? "seleted" : ""; ?>>유산소</option>
-                <option value="엉덩이" <?php echo $value["part"] === "엉덩이" ? "seleted" : ""; ?>>엉덩이</option>
-                <option value="복부" <?php echo $value["part"] === "복부" ? "seleted" : ""; ?>>복부</option>
-                <option value="허벅지" <?php echo $value["part"] === "허벅지" ? "seleted" : ""; ?>>허벅지</option>
-                <option value="팔" <?php echo $value["part"] === "팔" ? "seleted" : ""; ?>>팔</option>
-                <option value="다리" <?php echo $value["part"] === "다리" ? "seleted" : ""; ?>>다리</option>
-                <option value="전신" <?php echo $value["part"] === "전신" ? "seleted" : ""; ?>>전신</option>
+                <option value="유산소" <?php echo $select_id["part"] === "유산소" ? "seleted" : ""; ?>>유산소</option>
+                <option value="엉덩이" <?php echo $select_id["part"] === "엉덩이" ? "seleted" : ""; ?>>엉덩이</option>
+                <option value="복부" <?php echo $select_id["part"] === "복부" ? "seleted" : ""; ?>>복부</option>
+                <option value="허벅지" <?php echo $select_id["part"] === "허벅지" ? "seleted" : ""; ?>>허벅지</option>
+                <option value="팔" <?php echo $select_id["part"] === "팔" ? "seleted" : ""; ?>>팔</option>
+                <option value="다리" <?php echo $select_id["part"] === "다리" ? "seleted" : ""; ?>>다리</option>
+                <option value="전신" <?php echo $select_id["part"] === "전신" ? "seleted" : ""; ?>>전신</option>
               </select>
             </div>
 
@@ -144,9 +142,9 @@ try{
             <div class="level">운동 강도</div>
             <div>
               <select name="level" id="level" class="part_content">
-                <option value="고강도" <?php echo $value["level"] === "고강도" ? "seleted" : ""; ?>>고강도</option>
-                <option value="중강도" <?php echo $value["level"] === "중강도" ? "seleted" : ""; ?>>중강도</option>
-                <option value="저강도" <?php echo $value["level"] === "저강도" ? "seleted" : ""; ?>>저강도</option>
+                <option value="고강도" <?php echo $select_id["level"] === "고강도" ? "seleted" : ""; ?>>고강도</option>
+                <option value="중강도" <?php echo $select_id["level"] === "중강도" ? "seleted" : ""; ?>>중강도</option>
+                <option value="저강도" <?php echo $select_id["level"] === "저강도" ? "seleted" : ""; ?>>저강도</option>
               </select>
             </div>
           </div>

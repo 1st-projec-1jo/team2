@@ -1,6 +1,7 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"]."/config.php"); 
 require_once(MY_PATH_DB_LIB);
+require_once(MY_LIST_BACK);
 
 $conn = null;
 
@@ -41,8 +42,8 @@ try {
     $conn->beginTransaction();
     my_list_insert($conn, $arr_prepare);
 
+    $id = $conn->lastInsertId();
     $conn -> commit();
-
 
     header("Location: /detail.php?date=".$date."&id=".$id);
     exit;

@@ -5,7 +5,10 @@ require_once(MY_PATH_DB_LIB);
 $conn = null;
 
 try {
-    $conn = my_db_conn();
+  $conn = my_db_conn();
+
+	$year = date('Y');
+	$month = date('m');
 
 } catch(Throwable$th) {
     require_once(MY_PATH_ERROR);
@@ -29,7 +32,7 @@ try {
   <div class="index">
     <h1>우주인의 데일리 루틴</h1>
     <div class="index_btn">
-      <a href="/main.php"><button type="button" class="start">시작</button></a>
+      <a href="/main.php?year=<?php echo $year ?>&month=<?php echo $month ?>"><button type="button" class="start">시작</button></a>
     </div>
   </div>
 </body>

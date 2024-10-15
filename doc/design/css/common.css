@@ -118,6 +118,10 @@ a{
   gap: 7.5px;
 }
 
+.list:hover{
+  background-color: #c9dbf1;
+}
+
 .list_check {
   padding-top: 10px;
   padding-left: 20px;
