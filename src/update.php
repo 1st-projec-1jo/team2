@@ -22,11 +22,19 @@ try{
       "date" => $date
       ,"id" => $id
     ];
-
+    
     $select_id = my_list_select_id($conn, $arr_prepare);
+    $select_id_hour = $select_id["hour"]; // 해당 날짜 운동시간
+    
+    // 해당 날짜 운동 시간 총합
+
+    $arr_prepare_2  = [
+      "date" => $date
+    ];
+    
+    $hour_sum = my_exe_hour($conn, $arr_prepare_2);
 
   } else {
-
     $id = isset($_POST["id"]) ? (int)$_POST["id"] : 0;
     $date = isset($_POST["date"]) ? $_POST["date"] : "";
     $title = isset($_POST["title"]) ? $_POST["title"] : "";
@@ -70,7 +78,6 @@ try{
   }
 
 } catch(Throwable $th) {
-
   if(!is_null($conn) && $conn->inTransaction()){
     $conn->rollBack();
   }
@@ -99,6 +106,7 @@ try{
         <!-- 일정 관리 리스트 호출 -->
         <?php require_once(MY_LIST_FRONT) ?>
 
+
         <div class="container_r">
 
           <input type="hidden" name="date" value="<?php echo $date ?>">
@@ -117,7 +125,7 @@ try{
             <div class="time">운동 시간</div>
             <div class="time_box">
               <select name="hour" id="hour" class="time_content" required>
-                <?php for($hour = 1; $hour <= 24; $hour++){ ?>
+                <?php for($hour = 1; $hour <= (24 - $hour_sum + $select_id_hour); $hour++){ ?>
                   <option value="<?php echo $hour ?>" <?php echo $select_id["hour"] === $hour ? "selected" : ""; ?>><?php echo $hour ?></option>
                 <?php } ?>
               </select>
@@ -127,7 +135,7 @@ try{
           
           <div class="kcal_box">
             <div class="kcal">칼로리</div>
-            <input type="number" name="calory" id="calory" min="0" max="1800" class="kcal_content" value="<?php echo $select_id["calory"] ?>" required>
+            <input type="number" name="calory" id="calory" min="0" max="4000" class="kcal_content" value="<?php echo $select_id["calory"] ?>" required>
           </div>
 
           <div class="body_box">
