@@ -10,6 +10,7 @@ try{
     
     $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
     $date = isset($_GET["date"]) ? $_GET["date"] : "";
+    $hour = isset($_GET["hour"]) ? $_GET["hour"] : "";
 
     if($id < 1) {
       throw new Exception("파라미터 오류");
@@ -108,26 +109,30 @@ try{
           </div>
           <div class="title_box">
             <div class="title">제목</div>
-            <input class="title_content" name="title" id="title" value="<?php echo $select_id["title"] ?>">
+            <input type="text" class="title_content" name="title" id="title" maxlength="50" value="<?php echo $select_id["title"] ?>" required>
           </div>
             
           <div class="exe_time">
             <div class="time">운동 시간</div>
             <div class="time_box">
-              <input class="time_content" name="hour" id="hour" value="<?php echo $select_id["hour"] ?>">
+              <select name="hour" id="hour" class="time_content" required>
+                <?php for($hour = 1; $hour <= 24; $hour++){ ?>
+                  <option value="<?php echo $hour ?>" <?php echo $select_id["hour"] === $select_id["hour"] ? "seleted" : ""; ?>><?php echo $hour ?></option>
+                <?php } ?>
+              </select>
               <div class="time_text">시간</div>
             </div>
           </div>
           
           <div class="kcal_box">
             <div class="kcal">칼로리</div>
-            <input class="kcal_content" value="<?php echo $select_id["calory"] ?>">
+            <input type="number" class="kcal_content" value="<?php echo $select_id["calory"] ?>" required>
           </div>
 
           <div class="body_box">
             <div class="part">운동 부위</div>
             <div>
-              <select name="part" id="part" class="part_content">
+              <select name="part" id="part" class="part_content" required>
                 <option value="유산소" <?php echo $select_id["part"] === "유산소" ? "seleted" : ""; ?>>유산소</option>
                 <option value="엉덩이" <?php echo $select_id["part"] === "엉덩이" ? "seleted" : ""; ?>>엉덩이</option>
                 <option value="복부" <?php echo $select_id["part"] === "복부" ? "seleted" : ""; ?>>복부</option>
@@ -141,7 +146,7 @@ try{
 
             <div class="level">운동 강도</div>
             <div>
-              <select name="level" id="level" class="part_content">
+              <select name="level" id="level" class="part_content" required>
                 <option value="고강도" <?php echo $select_id["level"] === "고강도" ? "seleted" : ""; ?>>고강도</option>
                 <option value="중강도" <?php echo $select_id["level"] === "중강도" ? "seleted" : ""; ?>>중강도</option>
                 <option value="저강도" <?php echo $select_id["level"] === "저강도" ? "seleted" : ""; ?>>저강도</option>
@@ -153,7 +158,7 @@ try{
           <div class="memo_box">
             <div class="memo">메모</div>
             <div class="memo_content">
-              <textarea name="memo" id="memo" placeholder="memo"><?php echo $value["memo"] ?></textarea>
+              <textarea name="memo" id="memo" maxlength="1000" placeholder="memo"><?php echo $value["memo"] ?></textarea>
             </div>
           </div>
         </div>

@@ -66,7 +66,7 @@
                 <p class="pop_up_content">일정을 추가하시겠습니까?</p>
                 <div class="pop_up_btn_box pop_up_btn_box2">    
                 <a href="insert.php?date=<?php echo $date ?>"><button class="insert_btn">추가</button></a>
-                <a href="detail.php"><button class="delete_btn">보기</button></a>
+                <a href="detail.php?date=<?php echo $date ?>"><button class="delete_btn">보기</button></a>
                 </div>
             </div>
             <?php } ?>
