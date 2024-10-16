@@ -6,27 +6,10 @@ require_once(MY_LIST_BACK);
 $conn = null;
 
 
-try {
-  if(strtoupper($_SERVER["REQUEST_METHOD"]) === "GET") {
-
-    // $conn = my_db_conn();
-      
-
-    // $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
-    // $date = isset($_GET["date"]) ? $_GET["date"] : "";
-
-
-    // $arr_prepare = [
-    //   "date" => $date
-    // ];
-
-
-    // $result = my_list_select($conn, $arr_prepare);
-  } else {
-    
+if(strtoupper($_SERVER["REQUEST_METHOD"]) === "POST") {
+  try {
     $conn = my_db_conn();
 
-    // $id = isset($_POST["id"]) ? (int)$_POST["id"] : 0;
     $date = isset($_POST["date"]) ? $_POST["date"] : "";
 
     $arr_prepare  = [
@@ -47,20 +30,20 @@ try {
 
     header("Location: /detail.php?date=".$date."&id=".$id);
     exit;
+  } catch(Throwable $th) {
+    echo $th->getMessage();
+    exit;
+    
+    
+    if(!is_null($conn)) {
+      $conn->rollBack();
+    }
+    
+    require_once(MY_PATH_ERROR);
+    exit;
   }
-} catch(Throwable $th) {
-  echo $th->getMessage();
-  exit;
-  
-
-  if(!is_null($conn)) {
-    $conn->rollBack();
-  }
-
-  require_once(MY_PATH_ERROR);
-  exit;
 }
-
+  
 
 
 ?>
@@ -91,7 +74,7 @@ try {
             </div>
             <div class="title_box">
               <div class="title">제목</div>
-              <input class="title_content" name="title" id="title">
+              <input type="text" class="title_content" name="title" id="title" maxlength="50" required>
             </div>
               
             <div class="exe_time">
@@ -108,14 +91,16 @@ try {
             </div>
             
             <div class="kcal_box">
-              <div class="kcal">칼로리</div>
-              <input class="kcal_content" name="calory" id="calory">
+              <div class="kcal">칼
+                로리</div>
+              <input type="number" class="kcal_content" name="calory" id="calory" maxlength="5" required>
             </div>
 
             <div class="body_box">
               <div class="part">운동 부위</div>
               <div>
-                <select name="part" id="part" class="part_content">
+                <select name="part" id="part" class="part_content" required>
+                  <option value="">선택</option>
                   <option value="유산소">유산소</option>
                   <option value="엉덩이">엉덩이</option>
                   <option value="복부">복부</option>
@@ -128,7 +113,8 @@ try {
 
               <div class="level">운동 강도</div>
               <div>
-                <select name="level" id="level" class="part_content">
+                <select name="level" id="level" class="part_content" required>
+                  <option value="">선택</option>
                   <option value="고강도">고강도</option>
                   <option value="중강도">중강도</option>
                   <option value="저강도">저강도</option>
@@ -140,7 +126,7 @@ try {
             <div class="memo_box">
               <div class="memo">메모</div>
               <div class="memo_content">
-                <textarea name="memo" id="memo" placeholder="memo"></textarea>
+                <textarea name="memo" id="memo" maxlength="1000" placeholder="memo"></textarea>
 
               </div>
             </div>
