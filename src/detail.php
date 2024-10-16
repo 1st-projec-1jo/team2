@@ -15,7 +15,7 @@
       $sum_cal = my_select_calory_sum($conn, $arr_prepare); // 칼로리 합산
       $sum_cal = $sum_cal !== "0" ? (int)$sum_cal : 0;
 
-      $pct = round(($sum_cal * 100) / MY_CALORY_MAX); // 달성도 퍼센트 계산
+      $pct = (int)(round(($sum_cal * 100) / MY_CALORY_MAX)); // 달성도 퍼센트 계산
       
       $pct_bar = $pct > 100 ? 100 : $pct; // 게이지바 조정용
       
@@ -211,11 +211,17 @@
                 <div>
                   <div class="detail_gauge_top">
                     <div class="detail_item detail_gauge_title">
-                      <?php if(isset($pct) && $pct >= 100) { ?>
-                        <span class="color_green">
-                          오늘치 운동 목표량 달성!
-                        </span>
-                      <?php }else { ?>
+                    <?php if(isset($pct) && $pct >= 100) { 
+                            if($pct === 100) {?>
+                              <span class="color_green">
+                                오늘치 운동 목표량 달성!
+                              </span>
+                      <?php }elseif($pct > 100) { ?>
+                              <span class="color_red">
+                                오늘치 운동 목표량 초과!
+                              </span>
+                      <?php } 
+                          }else { ?>
                         달성 목표치: <?php echo MY_CALORY_MAX ?> kcal
                       <?php } ?>
                     </div>
@@ -232,9 +238,9 @@
                         }elseif($pct > 100){
                           ?>class="color_red"<?php
                         }
-                      }?>>
-                      <?php echo $pct ?>%
-                    </span>
+                      }?>><?php 
+                      echo $pct 
+                    ?>%</span>
                   </div>
 
                   <!-- 선과 칼로리 표시 DIV -->

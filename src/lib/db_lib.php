@@ -308,6 +308,7 @@ function my_select_calory_sum(PDO $conn, array $arr_param) {
     ."      sports_cal "
     ." WHERE "
     ."       deleted_at IS NULL "
+    ."   AND complete = 1  "
     ."   AND date = :date "
   ;
 
