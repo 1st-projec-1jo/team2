@@ -247,6 +247,27 @@ function my_list_update(PDO $conn, array $arr_param){
   return $stmt->fetchAll();
 }
 
+function my_exe_hour(PDO $conn, array $arr_param){
+  $sql =
+    " SELECT "
+    ."  SUM(hour) sum "
+    ."  FROM "
+    ."      sports_cal "
+    ." WHERE            "
+    ."      deleted_at IS NULL "
+    ."  AND date = :date "
+    ;
+
+    $stmt = $conn->prepare($sql);
+    $result_flg = $stmt -> execute($arr_param);
+
+    if(!$result_flg){
+      throw new Exception("쿼리 실행 실패");
+    }
+
+    return $stmt->fetch()["sum"];
+}
+
 /*******************************************************************************************
  * ↓ 주연님 파트
 *******************************************************************************************/

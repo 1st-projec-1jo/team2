@@ -154,7 +154,6 @@
   font-size: 1.1rem;
 }
 
-
 .memo_content textarea::-webkit-scrollbar {
   width: 10px;
 }
@@ -171,4 +170,10 @@
   border-radius: 10px;
   box-shadow:
   inset 0px 0px 5px white;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance:none;
+  margin: 0;
 }
