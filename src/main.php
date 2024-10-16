@@ -12,6 +12,7 @@ try {
 	$year = isset($_GET['year']) ? $_GET['year'] : date('Y');
 	// GET으로 넘겨 받은 month값이 있다면 넘겨 받은걸 month변수에 적용하고 없다면 현재 월
 	$month = isset($_GET['month']) ? $_GET['month'] : date('m');
+    $month = str_pad((string)$month, 2, "0", STR_PAD_LEFT);
     $m = isset($_GET['month']) ? $_GET['month'] : date('m');
 	$date = "$year-$month"; // 현재 날짜
 	$time = strtotime($date); // 현재 날짜의 타임스탬프
@@ -59,7 +60,6 @@ try {
             <div class="main_title">날짜를 선택해주세요</div>
                 <div class="calender">
                     <div class="cal_btn">
-                        
                     
                         <!-- 이전달과 다음달 버튼 -->
                         <?php if($m ==1): ?>
