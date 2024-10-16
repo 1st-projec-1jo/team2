@@ -5,13 +5,29 @@ require_once(MY_LIST_BACK);
 
 $conn = null;
 
+try{
+  if(strtoupper($_SERVER["REQUEST_METHOD"]) === "GET"){
 
-if(strtoupper($_SERVER["REQUEST_METHOD"]) === "POST") {
-  try {
+    $conn = my_db_conn();
+    
+    $date = isset($_GET["date"]) ? $_GET["date"] : "";
+    
+
+    // 해당 날짜 운동 시간 총합
+    
+    $arr_prepare  = [
+      "date" => $date
+    ];
+    
+    $hour_sum = (int)my_exe_hour($conn, $arr_prepare);
+
+  } else {
     $conn = my_db_conn();
 
     $date = isset($_POST["date"]) ? $_POST["date"] : "";
 
+    $conn->beginTransaction();
+    
     $arr_prepare  = [
       "date" => $_POST["date"]
       ,"title" => $_POST["title"]
@@ -22,28 +38,28 @@ if(strtoupper($_SERVER["REQUEST_METHOD"]) === "POST") {
       ,"memo" => $_POST["memo"]
     ];
     
-    $conn->beginTransaction();
-    my_list_insert($conn, $arr_prepare);
+    if($_POST["memo"] === "") {
+      $arr_prepare["memo"] = null;
+    } 
 
+    my_list_insert($conn, $arr_prepare);
+    
     $id = $conn->lastInsertId();
     $conn -> commit();
+    
+    header("Location: /detail.php?date=".$date."&id=".$id."#list".$id);
+    exit;
 
-    header("Location: /detail.php?date=".$date."&id=".$id);
-    exit;
-  } catch(Throwable $th) {
-    echo $th->getMessage();
-    exit;
-    
-    
-    if(!is_null($conn)) {
-      $conn->rollBack();
-    }
-    
-    require_once(MY_PATH_ERROR);
-    exit;
   }
-}
+} catch(Throwable $th) {
+  if(!is_null($conn) && $conn->inTransaction()) {
+    $conn->rollBack();
+  }
   
+  require_once(MY_PATH_ERROR);
+  exit;
+}
+
 
 
 ?>
@@ -74,7 +90,7 @@ if(strtoupper($_SERVER["REQUEST_METHOD"]) === "POST") {
             </div>
             <div class="title_box">
               <div class="title">제목</div>
-              <input type="text" class="title_content" name="title" id="title" maxlength="50" required>
+              <input type="text" class="title_content" name="title" id="title" maxlength="10" required>
             </div>
               
             <div class="exe_time">
@@ -82,7 +98,7 @@ if(strtoupper($_SERVER["REQUEST_METHOD"]) === "POST") {
               <div class="time_box">
               <select name="hour" id="hour" class="time_content" required>
                 <option value="">선택</option>
-                <?php for($hour = 1; $hour <= 24; $hour++){ ?>
+                <?php for($hour = 1; $hour <= (24 - $hour_sum); $hour++){ ?>
                   <option value="<?php echo $hour ?>"><?php echo $hour ?></option>
                 <?php } ?>
               </select>
@@ -91,9 +107,8 @@ if(strtoupper($_SERVER["REQUEST_METHOD"]) === "POST") {
             </div>
             
             <div class="kcal_box">
-              <div class="kcal">칼
-                로리</div>
-              <input type="number" class="kcal_content" name="calory" id="calory" maxlength="5" required>
+              <div class="kcal">칼로리</div>
+              <input type="number" min="0" max="4000" class="kcal_content" name="calory" id="calory" maxlength="2" required>
             </div>
 
             <div class="body_box">
@@ -126,8 +141,7 @@ if(strtoupper($_SERVER["REQUEST_METHOD"]) === "POST") {
             <div class="memo_box">
               <div class="memo">메모</div>
               <div class="memo_content">
-                <textarea name="memo" id="memo" maxlength="1000" placeholder="memo"></textarea>
-
+                <textarea name="memo" id="memo" maxlength="1000" placeholder="최대 1000자"></textarea>
               </div>
             </div>
           </div>
