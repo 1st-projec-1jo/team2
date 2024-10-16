@@ -41,11 +41,11 @@
 
                 <!-- 탑 우측 이동용 버튼 DIV -->
                 <div class="detail_top_btn">
-                  <a href="/update.html?date=<?php echo $date ?>&id=<?php echo $select_id["id"] ?>">
+                  <a href="/update.php?date=<?php echo $date ?>&id=<?php echo $select_id["id"] ?>">
                     <button class="btn-label bcolor-earthy">수정</button>
                   </a>
 
-                  <a href="./delete.html?date=<?php echo $date ?>&id=<?php echo $select_id["id"] ?>">
+                  <a href="./delete.php?date=<?php echo $date ?>&id=<?php echo $select_id["id"] ?>">
                     <button class="btn-label bcolor-darkred">삭제</button>
                   </a>
                 </div>
