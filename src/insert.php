@@ -95,7 +95,7 @@ if(strtoupper($_SERVER["REQUEST_METHOD"]) === "POST") {
             
             <div class="kcal_box">
               <div class="kcal">칼로리</div>
-              <input type="number" min="0" max="10000" class="kcal_content" name="calory" id="calory" maxlength="2" required>
+              <input type="number" min="0" max="1800" class="kcal_content" name="calory" id="calory" maxlength="2" required>
             </div>
 
             <div class="body_box">

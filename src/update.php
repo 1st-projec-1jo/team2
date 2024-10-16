@@ -127,7 +127,7 @@ try{
           
           <div class="kcal_box">
             <div class="kcal">칼로리</div>
-            <input type="number" name="calory" id="calory" min="0" max="10000" class="kcal_content" value="<?php echo $select_id["calory"] ?>" required>
+            <input type="number" name="calory" id="calory" min="0" max="1800" class="kcal_content" value="<?php echo $select_id["calory"] ?>" required>
           </div>
 
           <div class="body_box">
