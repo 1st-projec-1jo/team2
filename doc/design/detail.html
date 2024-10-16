@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/detail.css" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="container_box">
+        <div class="container_l">
+          <div class="date_btn">
+            <a href="./main.html"><button type="button">2024-10-08</button></a>
+          </div>
+          <hr />
+          <br />
+          <hr />
+          <div class="list_box">
+            <div class="list">
+              <div class="list_check">
+                <button type="button" class="chk_btn">
+                  <img
+                    src="./img/free-icon-check-7543187.png"
+                    width="30px"
+                    height="30px"
+                  />
+                </button>
+              </div>
+              <div class="list_title">
+                <a href="./detail.html"><div>수영</div></a>
+              </div>
+            </div>
+            <div class="list">
+              <div class="list_check">
+                <button type="button" class="chk_btn">
+                  <img
+                    src="./img/free-icon-check-7543187.png"
+                    width="30px"
+                    height="30px"
+                  />
+                </button>
+              </div>
+              <div class="list_title">
+                <a href="./detail.html"><div>축구</div></a>
+              </div>
+            </div>
+            <div class="list">
+              <div class="list_check">
+                <button type="button" class="chk_btn">
+                  <img
+                    src="./img/free-icon-check-7543187.png"
+                    width="30px"
+                    height="30px"
+                  />
+                </button>
+              </div>
+              <div class="list_title">
+                <a href="./detail.html"><div>헬스</div></a>
+              </div>
+            </div>
+            <div class="list_plus">
+              <div class="list_plus_btn">
+                <a href="./insert.html"><button type="button">+</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container_r">
+          <!-- 우측 상세 DIV -->
+          <div class="detail">
+            <!-- 좌측 일정 정보 출력 DIV -->
+            <div class="detail_info">
+              <div></div>
+
+              <!-- 탑 우측 이동용 버튼 DIV -->
+              <div class="detail_top_btn">
+                <a href="./update.html">
+                  <button class="btn-label bcolor-earthy">수정</button>
+                </a>
+
+                <a href="./delete.html">
+                  <button class="btn-label bcolor-darkred">삭제</button>
+                </a>
+              </div>
+
+              <!-- 나머지 내용 출력 DIV -->
+              <div class="detail_part">
+                <div class="detail_item detail_label">일정명</div>
+                <div class="detail_item detail_content">제목표시</div>
+              </div>
+
+              <div class="detail_part">
+                <div class="detail_item detail_label">예정시간</div>
+                <div class="detail_item detail_content">00 시간</div>
+              </div>
+
+              <div class="detail_part">
+                <div class="detail_item detail_label">소비칼로리</div>
+                <div class="detail_item detail_content">000 Kcal</div>
+              </div>
+
+              <div class="detail_part">
+                <div class="detail_item detail_label">운동부위</div>
+                <div class="detail_item detail_content">전신</div>
+              </div>
+
+              <div class="detail_part">
+                <div class="detail_item detail_label">운동강도</div>
+                <div class="detail_item detail_content">적당히</div>
+              </div>
+
+              <div class="detail_part">
+                <div class="detail_item detail_label detail_memo_label">
+                  메모
+                </div>
+                <div class="detail_item detail_content detail_memo_content">
+                  <div>귀찮아..</div>
+                </div>
+              </div>
+
+              <div></div>
+            </div>
+
+            <!-- 우측 게이지 정보 출력 DIV -->
+            <!-- 권장 800 Kcal 예정 -->
+            <div class="detail_gauge">
+              <div></div>
+
+              <!-- 목표 달성치 텍스트 DIV -->
+              <div>
+                <div class="detail_gauge_top">
+                  <div class="detail_item detail_gauge_title">
+                    달성 목표치: 800 Kcal
+                  </div>
+                </div>
+              </div>
+
+              <!-- 게이지 바 출력 DIV -->
+              <div class="detail_gauge_print">
+                <div class="detail_gauge_bar">
+                  <span>30%</span>
+                </div>
+
+                <!-- 선과 칼로리 표시 DIV -->
+                <div class="detail_gauge_view">
+                  <!-- 게이지 옆의 선 DIV -->
+                  <div class="detail_gauge_line">
+                    <hr />
+                  </div>
+                  <!-- 칼로리 표시 박스 DIV -->
+                  <div class="detail_gauge_box">0000 Kcal</div>
+                </div>
+              </div>
+
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
