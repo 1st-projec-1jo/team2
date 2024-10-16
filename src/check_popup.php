@@ -86,7 +86,7 @@
                 $conn->commit();
             }
 
-            header("Location: /detail.php?date=$date&id=".$id);
+            header("Location: /detail.php?date=$date&id=".$id."#list".$id);
             exit;
         }
 

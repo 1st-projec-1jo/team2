@@ -81,7 +81,7 @@
             <p>삭제하시겠습니까?</p>
             <div class="pop_up_btn_box">    
                 <button type="submit" class="insert_btn">삭제</button></a>
-                <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button class="delete_btn">취소</button></a>
+                <a href="/detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button type="button" class="delete_btn">취소</button></a>
             </div>
         </div>
       </div>
