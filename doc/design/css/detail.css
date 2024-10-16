@@ -1,5 +1,5 @@
 /* 공통 그림자 주기용 */
-.btn_label,
+.btn-label,
 .detail_label,
 .detail_content,
 .detail_gauge_bar,
@@ -13,7 +13,7 @@
 }
 
 /* 공용 버튼 */
-.btn_label {
+.btn-label {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,22 +26,13 @@
 }
 
 /* 배경 흙색 */
-.bcolor_earthy {
+.bcolor-earthy {
   background-color: #f0bb8e;
 }
 
 /* 배경 붉은색 */
-.bcolor_darkred {
+.bcolor-darkred {
   background-color: #e79898;
-}
-
-/* 글자색 빨간색 */
-.color_red {
-  color: #ff0000;
-}
-
-.color_green {
-  color: #45753d;
 }
 
 /* /////////////////////////////////////////////////////////////////////////////////////// */
@@ -134,7 +125,7 @@
 }
 
 /* 메모 라벨 영역 */
-/* .detail_memo_label {
+/* .detail_memo-label {
 } */
 
 /* 메모 내용 영역 */
@@ -227,7 +218,6 @@
   width: 100%;
 }
 
-/* 게이지 칼로리 표시 영역 */
 .detail_gauge_view {
   display: flex;
   justify-content: flex-end;
@@ -236,25 +226,21 @@
   padding-right: 10px;
 }
 
-/* 포지션 설정 */
 .detail_gauge_line,
 .detail_gauge_box {
   position: absolute;
 }
 
-/* 회색선 영역 */
 .detail_gauge_line {
   left: -105%;
   width: 220px;
 }
 
-/* 선 설정 */
 .detail_gauge_line hr {
   border-width: 3px 0 0 0;
   border-color: #eee;
 }
 
-/* 우측 텍스트 영역 */
 .detail_gauge_box {
   display: flex;
   justify-content: center;

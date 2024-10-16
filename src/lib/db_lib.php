@@ -256,3 +256,23 @@ function main_cal_list_cnt(PDO $conn, array $arr_param) {
  * ↓ 현석님 파트
 *******************************************************************************************/
 
+// 해당 데이터에 속하는 모든 칼로리의 합산 계산 함수
+function my_select_calory_sum(PDO $conn, array $arr_param) {
+  $sql = 
+    " SELECT "
+    ."      SUM(calory) AS sum_kcal "
+    ." FROM "
+    ."      sports_cal "
+    ." WHERE "
+    ."       deleted_at IS NULL "
+    ."   AND date = :date "
+  ;
+
+  $stmt = $conn->prepare($sql);
+
+  if(!$stmt->execute($arr_param)){
+    throw new Exception("칼로리 합계 계산에 실패헸습니다.");
+  }
+
+  return $stmt->fetch()["sum_kcal"];
+}
