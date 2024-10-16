@@ -8,11 +8,9 @@
           
           $date = isset($_GET["date"]) ? $_GET["date"] : "";  
 
-        if(is_null($date)) {
+        if(!isset($_GET["date"])) {
             throw new Exception("파라미터 오류");
         }
-
-
           $conn = my_db_conn();
 
               if(isset($_GET["id"])) {
@@ -29,6 +27,12 @@
               $select_id = my_list_select_id($conn, $arr_prepare);
             }
       
+            $arr_prepare_hour = [
+              "date" => $date
+            ];
+
+            $hour_arr = my_exe_hour($conn, $arr_prepare_hour);
+
           $arr_prepare_select = [
               "date" => $date
           ];
