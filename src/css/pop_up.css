@@ -56,6 +56,11 @@
     background-image: url(../img/X_hover_btn.png);
 }
 
+
+.btn_X {
+    margin-bottom: 50px;
+}
+
 .pop_up_cal {
     font-size: 40px;
 }

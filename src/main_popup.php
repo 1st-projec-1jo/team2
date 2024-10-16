@@ -8,6 +8,10 @@
 
         $date = isset($_GET["date"]) ? $_GET["date"] : "";
 
+        if(is_null($date)) {
+            throw new Exception("파라미터 오류");
+        }
+
         $arr_prepare = [
             "date" => $date
         ];
@@ -36,11 +40,14 @@
         <div class="container_box">
             <?php if($result === 0) { ?>
             <div class="pop_up_box">
+            <div class="back_btn">
+                <a href="main.php?year=<?php echo $ex[0] ?>&month=<?php echo $ex[1]?>"><button class="X_btn btn_X"></button></a>
+                </div>
                 <p class="pop_up_cal"><?php echo $date ?></p>
                 <br>
                 <br>
                 <p class="pop_up_content">이 날짜에 새로 작성하시겠습니까?</p>
-                <div class="pop_up_btn_box">    
+                <div class="pop_up_btn_box" style="margin-bottom: 90px;">    
                 <a href="insert.php?date=<?php echo $date ?>"><button class="insert_btn">작성</button></a>
                 <a href="main.php?year=<?php echo $ex[0] ?>&month=<?php echo $ex[1]?>"><button class="delete_btn">취소</button></a>
                 </div>
