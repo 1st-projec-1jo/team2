@@ -92,6 +92,28 @@ function my_pop_up_count_select(PDO $conn, array $arr_param) {
     return $stmt->fetch()["cnt"];
 }
 
+function my_hour_sum_select(PDO $conn, array $arr_param) {
+  $sql =
+    " SELECT            "
+    ."  SUM(hour)     sum         "
+    ."  FROM             "
+    ."         sports_cal    "
+    ." WHERE            "
+    ."         deleted_at IS NULL "
+    ."       AND date = :date "
+    ." GROUP BY DATE "
+    ;
+
+    $stmt = $conn->prepare($sql);
+    $result_flg = $stmt -> execute($arr_param);
+
+    if(!$result_flg){
+      throw new Exception("쿼리 실행 실패");
+    }
+
+    return $stmt->fetch()["sum"];
+}
+
 function my_project_delete(PDO $conn, array $arr_param) {
   $sql =
     " UPDATE "
