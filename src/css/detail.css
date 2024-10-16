@@ -25,16 +25,6 @@
   margin: 1rem 0.5rem;
 }
 
-/* 배경 흙색 */
-.bcolor_earthy {
-  background-color: #f0bb8e;
-}
-
-/* 배경 붉은색 */
-.bcolor_darkred {
-  background-color: #e79898;
-}
-
 /* 글자색 빨간색 */
 .color_red {
   color: #ff0000;
@@ -72,9 +62,23 @@
   justify-content: flex-end;
 }
 
+/* 수정 흙색 */
+.bcolor_earthy {
+  background-color: #f0bb8e;
+}
+
+/* 삭제 붉은색 */
+.bcolor_darkred {
+  background-color: #e79898;
+}
+
 /* 수정 삭제 버튼 호버 시 */
-.detail_top_btn > a > button:hover {
+.bcolor_earthy:hover {
   background-color: #d3833f;
+}
+
+.bcolor_darkred:hover {
+  background-color: #f24f4f;
 }
 
 /* 임시 영역 체크용 */
@@ -219,7 +223,6 @@
 .detail_gauge_bar span {
   display: block;
   border-radius: 20px 20px 10px 10px;
-  /* background-color: #f0bb8e; */
   background-color: #e79898;
   padding-top: 5px;
   text-align: center;
