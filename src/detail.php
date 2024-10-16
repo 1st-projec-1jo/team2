@@ -63,7 +63,11 @@
 
                 <div class="detail_part">
                   <div class="detail_item detail_label">소비칼로리</div>
-                  <div class="detail_item detail_content"><?php echo $select_id["calory"] ?> Kcal</div>
+                  <div class="detail_item detail_content"><?php 
+                    if(!is_null($select_id["calory"])) { 
+                      echo $select_id["calory"]; 
+                    }else {?>0<?php } ?> Kcal
+                  </div>
                 </div>
 
                 <div class="detail_part">
@@ -76,7 +80,6 @@
                   <div class="detail_item detail_content"><?php echo $select_id["level"] ?></div>
                 </div>
 
-                <!-- <div class="detail_part detail_memo"> -->
                 <div class="detail_part">
                   <div class="detail_item detail_label detail_memo-label">
                     메모
