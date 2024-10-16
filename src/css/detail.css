@@ -1,5 +1,5 @@
 /* 공통 그림자 주기용 */
-button,
+.btn-label,
 .detail_label,
 .detail_content {
   box-shadow:
@@ -109,9 +109,8 @@ button,
 /* 내용 부분 영역 */
 .detail_content {
   margin-left: 8rem;
-  background-color: #fff;
+  background-color: #f0f0f0;
   min-width: 16vw;
-  /* width: 18rem; */
   border-radius: 0 30px 30px 0;
 }
 
