@@ -8,7 +8,7 @@
 
         $date = isset($_GET["date"]) ? $_GET["date"] : "";
 
-        if(is_null($date)) {
+        if(!isset($_GET["date"])) {
             throw new Exception("파라미터 오류");
         }
 
@@ -22,7 +22,8 @@
         $ex = explode("-", $date);
     }
     catch(Throwable $th) {
-       echo $th->getMessage();
+        require_once(MY_PATH_ERROR);
+        exit;
     }
 ?>
 

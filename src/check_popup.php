@@ -8,32 +8,17 @@
 
     try {
         if(strtoupper($_SERVER["REQUEST_METHOD"]) === "GET") {
-            // $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
+            $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
             
-            // $date = isset($_GET["date"]) ? $_GET["date"] : "";
+            $date = isset($_GET["date"]) ? $_GET["date"] : "";
 
-            // if($id < 1) {
-            //     throw new Exception("파라미터 오류");
-            // }
+            if($id < 1) {
+                throw new Exception("파라미터 오류");
+            }
 
-            // if(is_null($date)) {
-            //     throw new Exception("파라미터 오류");
-            // }
-
-            // $conn = my_db_conn();
-
-            // $arr_prepare = [
-            //     "date" => $date
-            //     ,"id" => $id
-            // ];
-
-            // $select_id = my_list_select_id($conn, $arr_prepare);
-
-            // $arr_prepare_select = [
-            //     "date" => $date
-            // ];
-
-            // $result = my_list_select($conn, $arr_prepare_select);
+            if(!isset($_GET["date"])) {
+                throw new Exception("파라미터 오류");
+            } 
 
 
         }else if(strtoupper($_SERVER["REQUEST_METHOD"]) === "POST") {
