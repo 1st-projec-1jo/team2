@@ -70,7 +70,9 @@
 </head>
 <body>
    <form action="delete.php" method="POST">
+    <?php if(isset($_GET["id"])) { ?>
    <input type="hidden" name="id" id="id" value="<?php echo $id ?>">
+    <?php } ?>
    <input type="hidden" name="date" id="date" value="<?php echo $date ?>">
   <div class="container">
     <div class="container_box">
@@ -81,7 +83,8 @@
             <p>삭제하시겠습니까?</p>
             <div class="pop_up_btn_box">    
                 <button type="submit" class="insert_btn">삭제</button></a>
-                <a href="/detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button type="button" class="delete_btn">취소</button></a>
+                <a href="/detail.php?date=<?php echo $date ?>
+                <?php if(isset($_GET["id"])) { ?>&id=<?php echo $id ?> <?php } ?>"><button type="button" class="delete_btn">취소</button></a>
             </div>
         </div>
       </div>

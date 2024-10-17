@@ -8,6 +8,14 @@
 
         $date = isset($_GET["date"]) ? $_GET["date"] : "";
 
+        if(isset($_GET["id"])) {
+            throw new Exception("파라미터 오류");
+        }
+
+        if(mb_strlen($date) !== 10) {
+            throw new Exception("파라미터 오류");
+          }
+
         if(!isset($_GET["date"])) {
             throw new Exception("파라미터 오류");
         }

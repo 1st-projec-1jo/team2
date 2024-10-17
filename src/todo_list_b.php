@@ -8,9 +8,10 @@
           
           $date = isset($_GET["date"]) ? $_GET["date"] : "";  
 
-        if(!isset($_GET["date"])) {
+          if(mb_strlen($date) !== 10) {
             throw new Exception("파라미터 오류");
-        }
+          }
+
           $conn = my_db_conn();
 
               if(isset($_GET["id"])) {
@@ -24,7 +25,12 @@
                   "date" => $date
                   ,"id" => $id
               ];
+
               $select_id = my_list_select_id($conn, $arr_prepare);
+
+              if($select_id === false) {
+                throw new Exception("해당 데이터 없음");
+              }
             }
       
             $arr_prepare_hour = [
