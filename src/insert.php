@@ -11,8 +11,18 @@ try{
     $conn = my_db_conn();
     
     $date = isset($_GET["date"]) ? $_GET["date"] : "";
+
+    $year = isset($_GET['year']) ? $_GET['year'] : date('Y');
+    $month = isset($_GET['month']) ? $_GET['month'] : date('m');
+    $month = str_pad((string)$month, 2, "0", STR_PAD_LEFT);
     
 
+    $arr_prepare = [
+      "date" => $date
+    ];
+
+    $list_chk = my_pop_up_count_select($conn, $arr_prepare);
+    
     // 해당 날짜 운동 시간 총합
     
     $arr_prepare  = [
@@ -85,7 +95,12 @@ try{
         <div class="container_r">
             <input type="hidden" name="date" id="date" value="<?php echo $date ?>">
             <div class="header_btn">
-              <a href="/main.php"><button type="button">취소</button></a>
+
+              <?php if($list_chk !== 0){ ?>
+                <a href="/detail.php?date=<?php echo $date ?>"><button type="button">취소</button></a>
+                <?php }  else { ?>
+                <a href="/main.php?year=<?php echo $year ?>&month=<?php echo $month ?>"><button type="button">취소</button></a>
+              <?php } ?>
               <button type="submit">작성</button>
             </div>
             <div class="title_box">

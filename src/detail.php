@@ -105,7 +105,7 @@
             <?php if(empty($select_id)){ ?>
               <div class="non_info">
                 선택하신 일정이 없습니다 <br />
-                일정을 선택헤주세요.
+                일정을 선택해주세요.
               </div>
             <!-- 있으면 정보 출력 -->
             <?php }else { ?>
@@ -202,72 +202,73 @@
                 <div></div>
               </div>
 
-              <!-- 우측 게이지 정보 출력 DIV -->
-              <!-- 권장 800 Kcal 예정 -->
-              <div class="detail_gauge">
-                <div></div>
-
-                <!-- 목표 달성치 텍스트 DIV -->
-                <div>
-                  <div class="detail_gauge_top">
-                    <div class="detail_item detail_gauge_title">
-                    <?php if(isset($pct) && $pct >= 100) { 
-                            if($pct === 100) {?>
-                              <span class="color_green">
-                                오늘치 운동 목표량 달성!
-                              </span>
-                      <?php }elseif($pct > 100) { ?>
-                              <span class="color_red">
-                                오늘치 운동 목표량 초과!
-                              </span>
-                      <?php } 
-                          }else { ?>
-                        달성 목표치: <?php echo MY_CALORY_MAX ?> kcal
-                      <?php } ?>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 게이지 바 출력 DIV -->
-                <div class="detail_gauge_print">
-                  <div class="detail_gauge_bar">
-                    <span <?php 
-                      if(isset($pct)){ 
-                        if($pct === 100) {
-                          ?>class="color_green"<?php 
-                        }elseif($pct > 100){
-                          ?>class="color_red"<?php
-                        }
-                      }?>><?php 
-                      echo $pct 
-                    ?>%</span>
-                  </div>
-
-                  <!-- 선과 칼로리 표시 DIV -->
-                  <div class="detail_gauge_view">
-                    <!-- 게이지 옆의 선 DIV -->
-                    <div class="detail_gauge_line">
-                      <hr />
-                    </div>
-                    <!-- 칼로리 표시 박스 DIV -->
-                    <div class="detail_gauge_box">
-                      <span <?php 
-                      if(isset($sum_cal)){ 
-                        if($sum_cal === MY_CALORY_MAX) {
-                          ?>class="color_green"<?php 
-                        }elseif($sum_cal > MY_CALORY_MAX){
-                          ?>class="color_red"<?php
-                        }
-                      }?>>
-                        <?php echo $sum_cal ?>
-                      </span>&nbsp;kcal
-                    </div>
-                  </div>
-                </div>
-
-                <div></div>
-              </div>
             <?php } ?>
+
+            <!-- 우측 게이지 정보 출력 DIV -->
+            <!-- 권장 800 Kcal 예정 -->
+            <div class="detail_gauge">
+              <div></div>
+
+              <!-- 목표 달성치 텍스트 DIV -->
+              <div>
+                <div class="detail_gauge_top">
+                  <div class="detail_item detail_gauge_title">
+                  <?php if(isset($pct) && $pct >= 100) { 
+                          if($pct === 100) {?>
+                            <span class="color_green">
+                              오늘치 운동 목표량 달성!
+                            </span>
+                    <?php }elseif($pct > 100) { ?>
+                            <span class="color_red">
+                              오늘치 운동 목표량 초과!
+                            </span>
+                    <?php } 
+                        }else { ?>
+                      달성 목표치: <?php echo MY_CALORY_MAX ?> kcal
+                    <?php } ?>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 게이지 바 출력 DIV -->
+              <div class="detail_gauge_print">
+                <div class="detail_gauge_bar">
+                  <span <?php 
+                    if(isset($pct)){ 
+                      if($pct === 100) {
+                        ?>class="color_green"<?php 
+                      }elseif($pct > 100){
+                        ?>class="color_red"<?php
+                      }
+                    }?>><?php 
+                    echo $pct 
+                  ?>%</span>
+                </div>
+
+                <!-- 선과 칼로리 표시 DIV -->
+                <div class="detail_gauge_view">
+                  <!-- 게이지 옆의 선 DIV -->
+                  <div class="detail_gauge_line">
+                    <hr />
+                  </div>
+                  <!-- 칼로리 표시 박스 DIV -->
+                  <div class="detail_gauge_box">
+                    <span <?php 
+                    if(isset($sum_cal)){ 
+                      if($sum_cal === MY_CALORY_MAX) {
+                        ?>class="color_green"<?php 
+                      }elseif($sum_cal > MY_CALORY_MAX){
+                        ?>class="color_red"<?php
+                      }
+                    }?>>
+                      <?php echo $sum_cal ?>
+                    </span>&nbsp;kcal
+                  </div>
+                </div>
+              </div>
+
+              <div></div>
+            </div>
 
       </div>
     </div>
