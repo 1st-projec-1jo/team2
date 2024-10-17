@@ -167,7 +167,7 @@ try{
           <div class="memo_box">
             <div class="memo">메모</div>
             <div class="memo_content">
-              <textarea name="memo" id="memo" maxlength="1000" placeholder="최대 1000자"><?php echo $value["memo"] ?></textarea>
+              <textarea name="memo" id="memo" maxlength="1000"><?php echo $select_id["memo"] ?></textarea>
             </div>
           </div>
         </div>
