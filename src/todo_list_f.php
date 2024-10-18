@@ -1,7 +1,6 @@
 <div class="container_l">
   <div class="date_btn">
-    <a href="/main.php
-    <?php if(isset($_GET["date"])) { ?>?year=<?php echo $ex[0] ?>&month=<?php echo $ex[1]?> <?php } ?>"><button type="button"><?php echo $date ?></button></a>
+    <a href="/main.php<?php if(isset($_GET["date"])) { ?>?year=<?php echo $ex[0] ?>&month=<?php echo $ex[1]?><?php } ?>"><button type="button"><?php echo $date ?></button></a>
   </div>
   <hr>
   <br>
