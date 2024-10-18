@@ -5,7 +5,8 @@
 .detail_gauge_bar,
 .detail_gauge_title,
 .detail_gauge_bar span,
-.detail_gauge_box {
+.detail_gauge_box,
+.detail_non_box {
   box-shadow:
     5px 5px 7px rgba(0, 0, 0, 0.25),
     inset 2px 2px 5px rgba(0, 0, 0, 0.5),
@@ -43,11 +44,20 @@
   height: 100%;
 }
 
+/* 선택한 일정 없을때 뜨는 박스 영역 */
 .non_info {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
+}
+
+/* 텍스트 출력 박스 */
+.detail_non_box {
+  background-color: #f0f0f0;
+  padding: 40px 50px;
+  border-radius: 30px;
+  font-size: 1.8rem;
+  text-align: center;
 }
 
 /* 상세 박스 안에 일정 정보 출력 영역 */
@@ -109,7 +119,6 @@
 .detail_content {
   font-size: 1.1rem;
   padding: 10px;
-  width: 100px;
   height: 60px;
 }
 
@@ -125,10 +134,22 @@
 
 /* 내용 부분 영역 */
 .detail_content {
+  line-height: 60px;
   margin-left: 8rem;
   background-color: #f0f0f0;
   min-width: 16vw;
   border-radius: 0 30px 30px 0;
+  padding: 0 20px 0 35px;
+  width: 100px;
+}
+
+/* 메모 내용제외 일반 전부 */
+.detail_content:not(:last-child) {
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* 메모 높이 영역 */
@@ -149,18 +170,22 @@
 }
 
 /* 메모 출력 영역 */
-.detail_memo_content > div {
+.detail_memo_content div {
   width: 100%;
   height: 100%;
-  overflow: auto; /* 내용이 넘칠 경우 스크롤 */
+  overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
+  word-break: break-all; /* 줄이 넘어갈경우 잘라서 밑으로 */
+  text-align: initial; /* 기본값으로 */
+  line-height: initial;
+  padding-top: 3px;
 }
 
 /* 스크롤 좌우 길이 */
-.detail_memo_content > div::-webkit-scrollbar {
+.detail_memo_content div::-webkit-scrollbar {
   width: 10px;
 }
 /* 스크롤 커서 설정 */
-.detail_memo_content > div::-webkit-scrollbar-thumb {
+.detail_memo_content div::-webkit-scrollbar-thumb {
   background-color: #2f3542;
   border-radius: 10px;
   background-clip: border-box;
@@ -168,7 +193,7 @@
 }
 
 /* 스크롤 뒷배경 설정 */
-.detail_memo_content > div::-webkit-scrollbar-track {
+.detail_memo_content div::-webkit-scrollbar-track {
   background-color: grey;
   border-radius: 10px;
   box-shadow: inset 0px 0px 5px white;
@@ -214,20 +239,21 @@
   margin: 3px 10px;
   border-radius: 30px 30px 10px 10px;
   background-color: #f0f0f0;
-  opacity: 0.9;
+  /* opacity: 0.9; */
   height: 100%;
 }
 
 /* 오르내리는 게이지 영역 */
 .detail_gauge_bar span {
   display: block;
-  border-radius: 20px 20px 10px 10px;
+  border-radius: 15px 15px 10px 10px;
   background-color: #e79898;
   padding-top: 5px;
   text-align: center;
   font-size: 0.9rem;
   z-index: 1;
   width: 100%;
+  /* transform: translateX(-50%); */
 }
 
 /* 게이지 칼로리 표시 영역 */
@@ -249,6 +275,7 @@
 .detail_gauge_line {
   left: -105%;
   width: 220px;
+  z-index: 1;
 }
 
 /* 선 설정 */
@@ -266,5 +293,5 @@
   background-color: #f0bb8e;
   width: 130px;
   height: 50px;
-  z-index: 1;
+  z-index: 2;
 }

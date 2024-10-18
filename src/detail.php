@@ -10,17 +10,17 @@
       $conn = my_db_conn();
 
       unset($arr_prepare); // 기존 프리페어 삭제
-      $arr_prepare["date"] = $date;
+      $arr_prepare["date"] = $date; // 프리페어 재기입
 
       $sum_cal = my_select_calory_sum($conn, $arr_prepare); // 칼로리 합산
-      $sum_cal = $sum_cal !== "0" ? (int)$sum_cal : 0;
+      $sum_cal = $sum_cal !== "0" ? (int)$sum_cal : 0; // 문자열로 온걸 형변환
 
       $pct = (int)(round(($sum_cal * 100) / MY_CALORY_MAX)); // 달성도 퍼센트 계산
       
       $pct_bar = $pct > 100 ? 100 : $pct; // 게이지바 조정용
-      
-      $pct_line = $pct_bar - 1; // 선 조정용
-      $pct_box = $pct_bar - 5; // 박스 조정용
+
+      $pct_line = $pct_bar - 0.9; // 회색선 조정용
+      $pct_box = $pct_bar - 4.9; // 칼로리 박스 조정용
 
     }catch(Throwable $th) {
       require_once(MY_PATH_ERROR);
@@ -35,14 +35,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/common.css">
-  <link rel="stylesheet" href="/css/detail.css" />
+  <link rel="stylesheet" href="/css/detail.css">
 
   <style>
     /* 게이지 바 */
     .detail_gauge_bar span {
-      /* height: 30%; */
       height: <?php echo $pct_bar; ?>%;
-      animation: plus 0.9s 1;
+        animation: plus 0.9s 1;
 
       /* 100% 되는 조건식 넣어서 레디우스 수정 */
       <?php if($pct_bar === 100) { ?>
@@ -52,16 +51,23 @@
 
     /* 선, 퍼센트 계산값 - 1 */
     .detail_gauge_line {
-      /* bottom: 29%; */
       bottom: <?php echo $pct_line; ?>%;
-      animation: up 0.9s 1;
+      
+      /* 게이지가 0%면 움직이지 않게 고정 */
+      <?php if($pct_bar > 0) {?>
+        animation: up 0.9s 1;
+      <?php } ?>
     }
 
-    /* 박스, 퍼센트 계산값 -5 */
+    /* 칼로리 박스, 퍼센트 계산값 -5 */
     .detail_gauge_box {
       /* bottom: 25%; */
       bottom: <?php echo $pct_box; ?>%;
-      animation: kcal 0.92s 1;
+      
+      /* 게이지가 0%면 움직이지 않게 고정 */
+      <?php if($pct_bar > 0) {?>
+        animation: kcal 0.92s 1;
+      <?php } ?>
     }
 
     @keyframes plus {
@@ -89,7 +95,12 @@
     }
   </style>
 
-  <title>Document</title>
+  <title>
+    <?php 
+      if(isset($date)) { 
+        echo $date; 
+      } ?> 상세 일정
+  </title>
 </head>
 <body>
   <div class="container">
@@ -101,34 +112,42 @@
       <div class="container_r">
           <!-- 우측 상세 DIV -->
           <div class="detail">
+
             <!-- 선택해둔 일정이 없으면 -->
-            <?php if(empty($select_id)){ ?>
+            <?php 
+            if(empty($select_id)) { ?>
               <div class="non_info">
-                선택하신 일정이 없습니다 <br />
-                일정을 선택해주세요.
+                <div class="detail_non_box">
+                  선택하신 일정이 없습니다 <br />
+                  일정을 선택해주세요.
+                </div>
               </div>
+
             <!-- 있으면 정보 출력 -->
-            <?php }else { ?>
+            <?php 
+            }else { ?>
               <!-- 좌측 일정 정보 출력 DIV -->
               <div class="detail_info">
                 <div></div>
 
                 <!-- 탑 우측 이동용 버튼 DIV -->
-                <div class="detail_top_btn">
-                  <a href="/update.php?date=<?php echo $date ?>&id=<?php echo $select_id["id"] ?>">
-                    <button class="btn_label bcolor_earthy">수정</button>
-                  </a>
+                <div class="detail_top_btn"><?php 
+                  if(isset($date) && (isset($select_id["id"]) && $select_id["id"] !== 0)) { ?>
+                    <a href="/update.php?date=<?php echo $date ?>&id=<?php echo $select_id["id"] ?>">
+                      <button class="btn_label bcolor_earthy">수정</button>
+                    </a>
 
-                  <a href="/delete.php?date=<?php echo $date ?>&id=<?php echo $select_id["id"] ?>">
-                    <button class="btn_label bcolor_darkred">삭제</button>
-                  </a>
+                    <a href="/delete.php?date=<?php echo $date ?>&id=<?php echo $select_id["id"] ?>">
+                      <button class="btn_label bcolor_darkred">삭제</button>
+                    </a><?php 
+                  } ?>
                 </div>
 
                 <!-- 나머지 내용 출력 DIV -->
                 <div class="detail_part">
                   <div class="detail_item detail_label">제목</div>
                   <div class="detail_item detail_content"><?php 
-                    if(!is_null($select_id["title"]) && $select_id["title"] !== "") { 
+                    if(isset($select_id["title"]) && $select_id["title"] !== "") { 
                       echo $select_id["title"];
                     }else {?>
                       <span class="color_red">
@@ -141,7 +160,7 @@
                 <div class="detail_part">
                   <div class="detail_item detail_label">운동 시간</div>
                   <div class="detail_item detail_content"><?php 
-                    if(!is_null($select_id["hour"]) && $select_id["hour"] !== "") { 
+                    if(isset($select_id["hour"]) && $select_id["hour"] !== "") { 
                       echo $select_id["hour"]; ?> 시간<?php
                     }else {?>
                       <span class="color_red">
@@ -154,8 +173,8 @@
                 <div class="detail_part">
                   <div class="detail_item detail_label">칼로리</div>
                   <div class="detail_item detail_content"><?php 
-                    if(!is_null($select_id["calory"]) && $select_id["calory"] !== "") { 
-                      echo $select_id["calory"]; ?> kcal<?php
+                    if(isset($select_id["calory"]) && $select_id["calory"] !== "") { 
+                      echo $select_id["calory"]; ?>  kcal<?php
                     }else {?>
                       <span class="color_red">
                         미설정
@@ -167,7 +186,7 @@
                 <div class="detail_part">
                   <div class="detail_item detail_label">운동 부위</div>
                   <div class="detail_item detail_content"><?php 
-                    if(!is_null($select_id["part"]) && $select_id["part"] !== "") { 
+                    if(isset($select_id["part"]) && $select_id["part"] !== "") { 
                       echo $select_id["part"]; 
                     }else{?>
                       <span class="color_red">
@@ -180,7 +199,7 @@
                 <div class="detail_part">
                   <div class="detail_item detail_label">운동 강도</div>
                   <div class="detail_item detail_content"><?php 
-                    if(!is_null($select_id["level"]) && $select_id["level"] !== "") { 
+                    if(isset($select_id["level"]) && $select_id["level"] !== "") { 
                       echo $select_id["level"]; 
                     }else{?>
                       <span class="color_red">
@@ -194,18 +213,16 @@
                   <div class="detail_item detail_label detail_memo_label">
                     메모
                   </div>
-                  <div class="detail_item detail_content detail_memo_content">
+                  <div class="detail_content detail_memo_content">
                     <div><?php echo $select_id["memo"] ?></div>
                   </div>
                 </div>
 
                 <div></div>
-              </div>
-
-            <?php } ?>
+              </div><?php 
+            } ?>
 
             <!-- 우측 게이지 정보 출력 DIV -->
-            <!-- 권장 800 Kcal 예정 -->
             <div class="detail_gauge">
               <div></div>
 
@@ -213,19 +230,21 @@
               <div>
                 <div class="detail_gauge_top">
                   <div class="detail_item detail_gauge_title">
-                  <?php if(isset($pct) && $pct >= 100) { 
-                          if($pct === 100) {?>
-                            <span class="color_green">
+                  <?php if(isset($pct)) { 
+                          if($pct === 100) {
+                          ?><span class="color_green">
                               오늘치 운동 목표량 달성!
-                            </span>
-                    <?php }elseif($pct > 100) { ?>
-                            <span class="color_red">
+                            </span><?php
+                        }elseif($pct > 100) { 
+                          ?><span class="color_red">
                               오늘치 운동 목표량 초과!
-                            </span>
-                    <?php } 
-                        }else { ?>
-                      달성 목표치: <?php echo MY_CALORY_MAX ?> kcal
-                    <?php } ?>
+                            </span><?php
+                        }else { 
+                            ?>달성 목표치: <?php echo MY_CALORY_MAX ?> kcal<?php
+                        }
+                      }else { 
+                          ?>달성 목표치: <?php echo MY_CALORY_MAX ?> kcal<?php 
+                      } ?>
                   </div>
                 </div>
               </div>
@@ -235,8 +254,10 @@
                 <div class="detail_gauge_bar">
                   <span <?php 
                     if(isset($pct)){ 
+                      // 100% 완료
                       if($pct === 100) {
                         ?>class="color_green"<?php 
+                      // 100% 초과
                       }elseif($pct > 100){
                         ?>class="color_red"<?php
                       }
