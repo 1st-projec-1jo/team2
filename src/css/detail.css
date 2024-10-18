@@ -177,7 +177,8 @@
   word-break: break-all; /* 줄이 넘어갈경우 잘라서 밑으로 */
   text-align: initial; /* 기본값으로 */
   line-height: initial;
-  padding-top: 3px;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 /* 스크롤 좌우 길이 */
