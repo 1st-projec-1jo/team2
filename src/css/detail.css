@@ -32,7 +32,7 @@
 }
 
 .color_green {
-  color: #45753d;
+  color: #518b46;
 }
 
 /* /////////////////////////////////////////////////////////////////////////////////////// */
@@ -175,6 +175,7 @@
   height: 100%;
   overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
   word-break: break-all; /* 줄이 넘어갈경우 잘라서 밑으로 */
+  white-space: pre-line; /* 개행이 있으면 처리함 */
   text-align: initial; /* 기본값으로 */
   line-height: initial;
   padding-top: 7px;
