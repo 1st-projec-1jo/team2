@@ -1,32 +1,32 @@
 <?php
-    require_once($_SERVER["DOCUMENT_ROOT"]."/config.php");
-    require_once(MY_PATH_DB_LIB);
+  require_once($_SERVER["DOCUMENT_ROOT"]."/config.php");
+  require_once(MY_PATH_DB_LIB);
 
-    /* 일정 관리 리스트(백) 호출 */
-    require_once(MY_LIST_BACK);
+  /* 일정 관리 리스트(백) 호출 */
+  require_once(MY_LIST_BACK);
 
-    try {
+  try {
 
-      $conn = my_db_conn();
+    $conn = my_db_conn();
 
-      unset($arr_prepare); // 기존 프리페어 삭제
-      $arr_prepare["date"] = $date; // 프리페어 재기입, 유효성 검사는 LIST_BACK에서 거치고 왔으니 패스
+    unset($arr_prepare); // 기존 프리페어 삭제
+    $arr_prepare["date"] = $date; // 프리페어 재기입, 유효성 검사는 LIST_BACK에서 거치고 왔으니 패스
 
-      $sum_cal = my_select_calory_sum($conn, $arr_prepare); // 칼로리 합산
-      $sum_cal = $sum_cal !== "0" ? (int)$sum_cal : 0; // 문자열로 온걸 형변환
+    $sum_cal = my_select_calory_sum($conn, $arr_prepare); // 칼로리 합산
+    $sum_cal = $sum_cal !== "0" ? (int)$sum_cal : 0; // 문자열로 온걸 형변환
 
-      $pct = (int)(round(($sum_cal * 100) / MY_CALORY_MAX)); // 달성도 퍼센트 계산, % 출력용
-      
-      $pct_bar = $pct > 100 ? 100 : $pct; // 게이지바 조정용
+    $pct = (int)(round(($sum_cal * 100) / MY_CALORY_MAX)); // 달성도 퍼센트 계산, % 출력용
+    
+    $pct_bar = $pct > 100 ? 100 : $pct; // 게이지바 조정용
 
-      $pct_line = $pct_bar - 0.9; // 회색선 조정용
-      $pct_box = $pct_bar - 4.9; // 칼로리 박스 조정용
+    $pct_line = $pct_bar - 0.9; // 회색선 조정용
+    $pct_box = $pct_bar - 4.9; // 칼로리 박스 조정용
 
-    }catch(Throwable $th) {
-      require_once(MY_PATH_ERROR);
-      exit;
-    }
-
+  }catch(Throwable $th) {
+    require_once(MY_PATH_ERROR);
+    exit;
+  }
+  
 ?>
 
 <!DOCTYPE html>
