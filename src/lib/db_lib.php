@@ -286,14 +286,14 @@ function my_select_calory_sum(PDO $conn, array $arr_param) {
     ."      sports_cal "
     ." WHERE "
     ."       deleted_at IS NULL "
-    ."   AND complete = 1  "
+    ."   AND complete = 1 "
     ."   AND date = :date "
   ;
 
   $stmt = $conn->prepare($sql);
 
   if(!$stmt->execute($arr_param)){
-    throw new Exception("칼로리 합계 계산에 실패헸습니다.");
+    throw new Exception("칼로리 합계 계산 실패");
   }
 
   return $stmt->fetch()["sum_kcal"];

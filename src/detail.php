@@ -10,12 +10,12 @@
       $conn = my_db_conn();
 
       unset($arr_prepare); // 기존 프리페어 삭제
-      $arr_prepare["date"] = $date; // 프리페어 재기입
+      $arr_prepare["date"] = $date; // 프리페어 재기입, 유효성 검사는 LIST_BACK에서 거치고 왔으니 패스
 
       $sum_cal = my_select_calory_sum($conn, $arr_prepare); // 칼로리 합산
       $sum_cal = $sum_cal !== "0" ? (int)$sum_cal : 0; // 문자열로 온걸 형변환
 
-      $pct = (int)(round(($sum_cal * 100) / MY_CALORY_MAX)); // 달성도 퍼센트 계산
+      $pct = (int)(round(($sum_cal * 100) / MY_CALORY_MAX)); // 달성도 퍼센트 계산, % 출력용
       
       $pct_bar = $pct > 100 ? 100 : $pct; // 게이지바 조정용
 
@@ -276,8 +276,10 @@
                   <div class="detail_gauge_box">
                     <span <?php 
                     if(isset($sum_cal)){ 
-                      if($sum_cal === MY_CALORY_MAX) {
+                      // 칼로리와 설정값이 일치 혹은 이상인데 100% 라면 초록 폰트
+                      if(($sum_cal === MY_CALORY_MAX) || ($sum_cal >= MY_CALORY_MAX && (isset($pct) && $pct === 100))) {
                         ?>class="color_green"<?php 
+                      // 넘으면 빨강 
                       }elseif($sum_cal > MY_CALORY_MAX){
                         ?>class="color_red"<?php
                       }
