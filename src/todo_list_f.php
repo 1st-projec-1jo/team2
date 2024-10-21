@@ -7,24 +7,25 @@
   <hr>
   <div class="list_box">
         <div class="list_scroll">
-          <?php foreach($result as $value) { ?>
-            <div id="list<?php echo $value["id"] ?>" class="list 
-              <?php if(isset($id)) { ?><?php 
-                if($id === $value["id"]) { ?> list_selected <?php } ?> <?php } ?><?php
-                if($value["complete"] === 1) { ?> list_title list_chked <?php } ?> ">
-                  <div class="list_check">
-                      <!-- list_title (기본 클래스) -->
-                      <!-- list_selected (해당 일정을 선택했을 때) -->
-                      <!-- list_chked (해당 일정을 체크했을 때) -->
-                    <a href="/check_popup.php?date=<?php echo $date ?>&id=<?php echo $value["id"] ?>">
-                      <button type="button" class="chk_btn<?php if($value["complete"] === 1) { ?> chk_green <?php } ?>"></button>
-                    </a>
-                  </div>
-                  <div class="list_title">
-                    <a href="/detail.php?date=<?php echo $date ?>&id=<?php echo $value["id"] ?>"><div><?php echo $value["title"]?></div></a>
-                  </div>
+        <?php foreach($result as $value) { ?>
+          <div id="list<?php echo $value["id"] ?>" class="list 
+          <?php  if(isset($id)) { ?>
+          <?php 
+            if($id === $value["id"]) { ?> list_selected <?php } ?> <?php } ?>
+            <?php
+            if($value["complete"] === 1)   { ?> list_title list_chked <?php } ?> ">
+                <div class="list_check">
+                  <!-- selected -> list_selected -->
+                  <a href="/check_popup.php?date=<?php echo $date ?>&id=<?php echo $value["id"] ?>">
+                    <button type="button" class="chk_btn<?php 
+                    if($value["complete"] === 1) { ?> chk_green <?php } ?>"></button>
+                  </a>
+                </div>
+                <div class="list_title">
+                  <a href="/detail.php?date=<?php echo $date ?>&id=<?php echo $value["id"] ?>"><div><?php echo $value["title"]?></div></a>
+                </div>
+              </div>
               <?php } ?>
-            </div>
         </div>
     
     <?php if($hour_arr < 24) { ?>

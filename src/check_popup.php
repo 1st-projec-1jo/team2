@@ -126,7 +126,7 @@
                     <p>이 운동 일정을</p>
                     <p>미완료 상태로 되돌리시겠습니까?</p>
              <div class="pop_up_btn_box">    
-                    <button type="submit" class="insert_btn">확인</button></a>
+                     <button type="submit" class="insert_btn">확인</button></a>
                     <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button type="button" class="delete_btn">취소</button></a>
              </div>
         </div>
