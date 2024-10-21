@@ -6,46 +6,51 @@
   try {
       if(strtoupper($_SERVER["REQUEST_METHOD"]) === "GET") {
           
-          $date = isset($_GET["date"]) ? $_GET["date"] : "";  
+      $date = isset($_GET["date"]) ? $_GET["date"] : "";  
 
-          if(mb_strlen($date) !== 10) {
-            throw new Exception("파라미터 오류");
-          }
+      // $date의 문자열 길이가 10글자인지 확인
+      if(mb_strlen($date) !== 10) {
+        throw new Exception("파라미터 오류");
+      }
 
-          $conn = my_db_conn();
+      $conn = my_db_conn();
 
-              if(isset($_GET["id"])) {
-                $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
+      // 파라미터의 id값이 들어왔을 경우
+      if(isset($_GET["id"])) {
 
-                if($id < 1) {
-                    throw new Exception("파라미터 오류");
-                }
+        $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
 
-                $arr_prepare = [
-                  "date" => $date
-                  ,"id" => $id
-              ];
+        if($id < 1) {
+          throw new Exception("파라미터 오류");
+        }
 
-              $select_id = my_list_select_id($conn, $arr_prepare);
+        $arr_prepare = [
+            "date" => $date
+            ,"id" => $id
+        ];  
 
-              if($select_id === false) {
-                throw new Exception("해당 데이터 없음");
-              }
-            }
-      
-            $arr_prepare_hour = [
-              "date" => $date
-            ];
+        $select_id = my_list_select_id($conn, $arr_prepare);
 
-            $hour_arr = my_exe_hour($conn, $arr_prepare_hour);
+        // 파라미터 date 값에 파라미터 id의 데이터가 없을 경우
+        if($select_id === false) {
+          throw new Exception("해당 데이터 없음");
+        }
 
-          $arr_prepare_select = [
-              "date" => $date
-          ];
+      }
+    
+      $arr_prepare_hour = [
+        "date" => $date
+      ];
 
-        $result = my_list_select($conn, $arr_prepare_select);
+      $hour_arr = my_exe_hour($conn, $arr_prepare_hour);
 
-        $ex = explode("-", $date);
+      $arr_prepare_select = [
+          "date" => $date
+      ];
+
+      $result = my_list_select($conn, $arr_prepare_select);
+
+      $ex = explode("-", $date);
 
       }
     }catch(Throwable $th) {
