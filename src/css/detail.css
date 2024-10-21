@@ -82,20 +82,15 @@
   background-color: #e79898;
 }
 
-/* 수정 삭제 버튼 호버 시 */
+/* 수정 버튼 호버 시 */
 .bcolor_earthy:hover {
   background-color: #d3833f;
 }
 
+/* 삭제 버튼 호버 시 */
 .bcolor_darkred:hover {
   background-color: #f24f4f;
 }
-
-/* 임시 영역 체크용 */
-/* .detail_info > div:nth-child(n + 2) {
-  background-color: #bbb;
-  border: 1px solid #000;
-} */
 
 /* 나머지 상세내용 영역 */
 .detail_part {
@@ -176,7 +171,7 @@
   overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
   word-break: break-all; /* 줄이 넘어갈경우 잘라서 밑으로 */
   white-space: pre-line; /* 개행이 있으면 처리함 */
-  text-align: initial; /* 기본값으로 */
+  text-align: initial; /* 정렬을 기본값으로 */
   line-height: initial;
   padding-top: 7px;
   padding-bottom: 7px;
