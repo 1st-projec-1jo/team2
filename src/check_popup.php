@@ -16,7 +16,7 @@
                 throw new Exception("파라미터 오류");
             }
 
-            if(!isset($_GET["date"])) {
+            if(mb_strlen($date) !== 10) {
                 throw new Exception("파라미터 오류");
             } 
 
@@ -33,7 +33,7 @@
                 throw new Exception("파라미터 오류");
             }
 
-            if(is_null($date)) {
+            if(empty($date)) {
                 throw new Exception("파라미터 오류");
             }
 
@@ -43,7 +43,6 @@
                 
                 $conn->beginTransaction();
     
-                
                 $arr_prepare = [
                     "complete" => 1
                     ,"id" => $id
@@ -60,7 +59,6 @@
                 
                 $conn->beginTransaction();
     
-                
                 $arr_prepare = [
                     "complete" => 0
                     ,"id" => $id
@@ -92,48 +90,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/check_popup.css">
     <link rel="stylesheet" href="./css/common.css">
-    <title>Document</title>
+    <title>Document</title> 
 </head>
 <body>
    <form action="check_popup.php" method="POST">
-   <input type="hidden" name="id" id="id" value="<?php echo $id ?>">
-   <input type="hidden" name="date" id="date" value="<?php echo $date ?>">
-   <input type="hidden" name="complete" id="complete" value="<?php echo $select_id["complete"] ?>">
-  <div class="container">
-    <div class="container_box">
-        
+        <input type="hidden" name="id" id="id" value="<?php echo $id ?>">
+        <input type="hidden" name="date" id="date" value="<?php echo $date ?>">
+        <input type="hidden" name="complete" id="complete" value="<?php echo $select_id["complete"] ?>">
 
-     <?php require_once(MY_LIST_FRONT) ?>
-      
-
-    <?php if($select_id["complete"] === 0) { ?>
-    <div class="container_r">
-         <div class="delete_box">
-                    <p><?php echo $select_id["title"] ?></p>
-                    <p>이 운동 일정을 완료하시겠습니까?</p>
-             <div class="pop_up_btn_box">    
-                     <button type="submit" class="insert_btn">완료</button></a>
-                    <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button type="button" class="delete_btn">취소</button></a>
-             </div>
+        <div class="container">
+            <div class="container_box">
+                <?php require_once(MY_LIST_FRONT) ?>
+                <?php if($select_id["complete"] === 0) { ?>
+                    <div class="container_r">
+                        <div class="delete_box">
+                                    <p><?php echo $select_id["title"] ?></p>
+                                    <p>이 운동 일정을 완료하시겠습니까?</p>
+                            <div class="pop_up_btn_box">    
+                                    <button type="submit" class="insert_btn">완료</button></a>
+                                    <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button type="button" class="delete_btn">취소</button></a>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+                
+                <?php if($select_id["complete"] === 1) { ?>
+                    <div class="container_r">
+                        <div class="delete_box">
+                                    <p><?php echo $select_id["title"] ?></p>
+                                    <p>이 운동 일정을</p>
+                                    <p>미완료 상태로 되돌리시겠습니까?</p>
+                            <div class="pop_up_btn_box">    
+                                    <button type="submit" class="insert_btn">확인</button></a>
+                                    <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button type="button" class="delete_btn">취소</button></a>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
         </div>
-     </div>
-    <?php } ?>
-    
-    <?php if($select_id["complete"] === 1) { ?>
-      <div class="container_r">
-         <div class="delete_box">
-                    <p><?php echo $select_id["title"] ?></p>
-                    <p>이 운동 일정을</p>
-                    <p>미완료 상태로 되돌리시겠습니까?</p>
-             <div class="pop_up_btn_box">    
-                     <button type="submit" class="insert_btn">확인</button></a>
-                    <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button type="button" class="delete_btn">취소</button></a>
-             </div>
-        </div>
-      </div>
-      <?php } ?>
-
-    </div>
-  </div>
 </body>
 </html>
