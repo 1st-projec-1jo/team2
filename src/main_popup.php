@@ -7,7 +7,8 @@
     try {
         $conn = my_db_conn();
 
-        $date = isset($_GET["date"]) ? $_GET["date"] : "";
+        $date = isset($_GET["date"]) ? $_GET["date"] : null;
+        my_check_date_exception($date); // date 유효성 검사
 
         if(isset($_GET["id"])) {
             throw new Exception("파라미터 오류");
@@ -15,7 +16,7 @@
 
         if(mb_strlen($date) !== 10) {
             throw new Exception("파라미터 오류");
-          }
+        }
 
 
         $arr_prepare = [

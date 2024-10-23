@@ -9,13 +9,12 @@ try{
   if(strtoupper($_SERVER["REQUEST_METHOD"]) === "GET") {
     
     $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
-    $date = isset($_GET["date"]) ? $_GET["date"] : "";
+    // $date = isset($_GET["date"]) ? $_GET["date"] : "";
 
     if($id < 1) {
       throw new Exception("파라미터 오류");
     }
-
-
+    
     $conn = my_db_conn();
 
     $arr_prepare = [

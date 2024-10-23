@@ -8,36 +8,10 @@
 
   try {
 
-    // date 유효성 검사
-    $date = isset($_GET["date"]) ? $_GET["date"] : null;
-  
-    if(!is_null($date) && mb_strlen($date) === 10) { // 길이 맞는지 확인
-      $arr_date = explode("-", $date); // 0 year, 1 month, 2 day 3개로 분할
-  
-      if(count($arr_date) !== 3) { // 분할된 배열이 3개로 왔는지 확인
-        throw new Exception("잘못된 접근 확인됨"); // 안왓으면 던짐
-      }
-  
-      foreach($arr_date as $no => $item) { // 0 year, 1 month, 2 day 3개
-        if(is_numeric($item) && $item > 0) { // 숫자여야하고 그 숫자는 0이나 음수가 아니여야함
-          if($no === 0){ continue; } // year은 패스
-    
-          // month는 12월을 넘지않아야하며, day는 그달의 말일을 넘으면 안된다
-          if(($no === 1 && $item > 12) || ($no === 2 && $item > date("t", strtotime($date)))) {
-            throw new Exception("잘못된 접근 확인됨"); // 넘었으면 던짐
-          }
-        }else { // 아니면 던짐
-          throw new Exception("잘못된 접근 확인됨");
-        }
-      }
-    }else { // 아니면 던짐
-      throw new Exception("잘못된 접근 확인됨");
-    }
-
     $conn = my_db_conn(); // 칼로리 합계를 가져와야 하기에 DB 접속
 
     if(isset($arr_prepare)) { // 기존에 프리페어가 있으면
-      unset($arr_prepare); // 기존 프리페어 배열 삭제
+      $arr_prepare = [] ; // 기존 프리페어 배열 초기화
     }
 
     $arr_prepare["date"] = $date; // 프리페어 재기입
@@ -71,7 +45,7 @@
     /* 게이지 바 */
     .detail_gauge_bar span {
       height: <?php echo $pct_bar; ?>%;
-        animation: plus 0.9s 1;
+      animation: plus 0.9s 1;
 
       /* 100% 되는 조건식 넣어서 레디우스 수정 */
       <?php if($pct_bar === 100) { ?>
@@ -91,7 +65,6 @@
 
     /* 칼로리 박스, 퍼센트 계산값 -5 */
     .detail_gauge_box {
-      /* bottom: 25%; */
       bottom: <?php echo $pct_box; ?>%;
       
       /* 게이지가 0%면 움직이지 않게 고정 */
@@ -290,17 +263,17 @@
             <div>
               <div class="detail_gauge_top">
                 <div class="detail_item detail_gauge_title"><?php 
-                      if(isset($pct)) { 
-                        // 100% 완료
-                        if($pct === 100) {
-                        ?><span class="color_green">
-                            오늘치 운동 목표량 달성!
-                          </span><?php
-                        // 100% 초과
-                        }elseif($pct > 100) { 
-                        ?><span class="color_red">
-                            오늘치 운동 목표량 초과!
-                          </span><?php
+                    if(isset($pct)) { 
+                      // 100% 완료
+                      if($pct === 100) {
+                      ?><span class="color_green">
+                          오늘치 운동 목표량 달성!
+                        </span><?php
+                      // 100% 초과
+                      }elseif($pct > 100) { 
+                      ?><span class="color_red">
+                          오늘치 운동 목표량 초과!
+                        </span><?php
                       }else { 
                           ?>달성 목표치: <?php echo MY_CALORY_MAX ?>&nbsp;kcal<?php
                       }
@@ -341,7 +314,7 @@
                   <span <?php 
                     if(isset($sum_cal)){ 
                       // 칼로리와 설정값이 일치 혹은 이상인데 100% 라면 초록 폰트
-                      if(($sum_cal === MY_CALORY_MAX) || ($sum_cal >= MY_CALORY_MAX && (isset($pct) && $pct === 100))) {
+                      if($sum_cal >= MY_CALORY_MAX && (isset($pct) && $pct === 100)) {
                         ?>class="color_green"<?php 
                       // 넘으면 초과로 판단하여 빨강 폰트 적용
                       }elseif($sum_cal > MY_CALORY_MAX){

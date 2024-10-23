@@ -10,7 +10,8 @@
 
             $id = isset($_POST["id"]) ? (int)$_POST["id"] : 0;
             
-            $date = isset($_POST["date"]) ? $_POST["date"] : "";
+            $date = isset($_POST["date"]) ? $_POST["date"] : null;
+            my_check_date_exception($date); // date 유효성 검사
 
             if($id < 1) {
                 throw new Exception("파라미터 오류");

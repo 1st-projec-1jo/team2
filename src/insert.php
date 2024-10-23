@@ -10,7 +10,7 @@ try{
 
     $conn = my_db_conn();
     
-    $date = isset($_GET["date"]) ? $_GET["date"] : "";
+    // $date = isset($_GET["date"]) ? $_GET["date"] : "";
 
     $year = isset($_GET['year']) ? $_GET['year'] : date('Y');
     $month = isset($_GET['month']) ? $_GET['month'] : date('m');

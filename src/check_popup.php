@@ -3,14 +3,14 @@
     require_once(MY_PATH_DB_LIB);
     require_once(MY_LIST_BACK);
     
-
     $conn = null;
 
     try {
         if(strtoupper($_SERVER["REQUEST_METHOD"]) === "GET") {
             $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
             
-            $date = isset($_GET["date"]) ? $_GET["date"] : "";
+            $date = isset($_GET["date"]) ? $_GET["date"] : null;
+            my_check_date_exception($date); // date 유효성 검사
 
             if($id < 1) {
                 throw new Exception("파라미터 오류");
@@ -19,8 +19,7 @@
             if(mb_strlen($date) !== 10) {
                 throw new Exception("파라미터 오류");
             } 
-
-
+            
         }else if(strtoupper($_SERVER["REQUEST_METHOD"]) === "POST") {
 
             $id = isset($_POST["id"]) ? (int)$_POST["id"] : 0;
@@ -73,8 +72,7 @@
             exit;
         }
 
-     }
-     catch(Throwable $th) { 
+     }catch(Throwable $th) { 
         if(!is_null($conn) && $conn->inTransaction()) {
             $conn->rollBack();
         }
@@ -104,11 +102,12 @@
                 <?php if($select_id["complete"] === 0) { ?>
                     <div class="container_r">
                         <div class="delete_box">
-                                    <p><?php echo $select_id["title"] ?></p>
-                                    <p>이 운동 일정을 완료하시겠습니까?</p>
+                            <p><?php echo $select_id["title"] ?></p>
+                            <p>이 운동 일정을 완료하시겠습니까?</p>
+
                             <div class="pop_up_btn_box">    
-                                    <button type="submit" class="insert_btn">완료</button></a>
-                                    <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button type="button" class="delete_btn">취소</button></a>
+                                <button type="submit" class="insert_btn">완료</button></a>
+                                <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button type="button" class="delete_btn">취소</button></a>
                             </div>
                         </div>
                     </div>
@@ -117,12 +116,12 @@
                 <?php if($select_id["complete"] === 1) { ?>
                     <div class="container_r">
                         <div class="delete_box">
-                                    <p><?php echo $select_id["title"] ?></p>
-                                    <p>이 운동 일정을</p>
-                                    <p>미완료 상태로 되돌리시겠습니까?</p>
+                                <p><?php echo $select_id["title"] ?></p>
+                                <p>이 운동 일정을</p>
+                                <p>미완료 상태로 되돌리시겠습니까?</p>
                             <div class="pop_up_btn_box">    
-                                    <button type="submit" class="insert_btn">확인</button></a>
-                                    <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button type="button" class="delete_btn">취소</button></a>
+                                <button type="submit" class="insert_btn">확인</button></a>
+                                <a href="detail.php?date=<?php echo $date ?>&id=<?php echo $id ?>"><button type="button" class="delete_btn">취소</button></a>
                             </div>
                         </div>
                     </div>

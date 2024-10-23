@@ -298,3 +298,31 @@ function my_select_calory_sum(PDO $conn, array $arr_param) {
 
   return $stmt->fetch()["sum_kcal"];
 }
+
+// date 유효성 검사를 체크하기 위한 함수
+function my_check_date_exception(string $date){
+  if(!is_null($date) && mb_strlen($date) === 10) { // 길이 맞는지 확인
+    $arr_date = explode("-", $date); // 0 year, 1 month, 2 day 3개로 분할
+
+    if(count($arr_date) !== 3) { // 분할된 배열이 3개로 왔는지 확인
+      throw new Exception("잘못된 접근 확인됨"); // 안왓으면 던짐
+    }
+
+    foreach($arr_date as $no => $item) { // 0 year, 1 month, 2 day 3개
+      if(is_numeric($item) && $item > 0) { // 숫자여야하고 그 숫자는 0이나 음수가 아니여야함
+        if($no === 0){ continue; } // year은 패스
+  
+        // month는 12월을 넘지않아야하며, day는 그달의 말일을 넘으면 안된다
+        if(($no === 1 && $item > 12) || ($no === 2 && $item > date("t", strtotime($date)))) {
+          throw new Exception("잘못된 접근 확인됨"); // 넘었으면 던짐
+        }
+      }else { // 아니면 던짐
+        throw new Exception("잘못된 접근 확인됨");
+      }
+    }
+  }else { // 아니면 던짐
+    throw new Exception("잘못된 접근 확인됨");
+  }
+
+  return true;
+}
